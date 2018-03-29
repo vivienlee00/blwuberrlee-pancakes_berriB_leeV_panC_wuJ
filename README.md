@@ -22,6 +22,7 @@ Through this, our user will be able to gain insight on questions such as “How 
 ## Gallery Examples:
 
 http://charts.animateddata.co.uk/f1/
+
 https://github.com/marmelab/EventDrops
 
 Both of these gallery examples are similar to the idea that we have, as they both feature a horizontal timeline format. Ordered by date, each event is represented as a single line or dot on the timeline that the user can then hover over to get more information on the event.
