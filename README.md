@@ -11,13 +11,20 @@ This dataset is a .csv file that features information on various mass shootings 
 
 We feel that this dataset is especially relevant today because of recent mass shootings that have occurred in the United States and calls for gun control. By graphing the information seen in this dataset we can get a better idea of how the frequency of mass shootings in the US has changed over a period of time.
 
+
 ## Interaction:
 
 Without user interaction, our page will display a horizontal timeline marked with bullet-shaped ticks. Users can interact with the page by hovering over the bullets, which will then display more information on the specific shooting. 
 
 Through this, our user will be able to gain insight on questions such as “How many mass shootings actually occur in the United States?” and will also provide some scope on how factors such as race and location have an impact on the occurrence of shootings. 
 
+
 ## D3 Features:
+
+There will be a pie chart that can be filled with variable data. Such examples include percentages of gender, race, age range, and number of deaths. The chart may be interchanged with such information to give the viewer a general trend of mass shootings around the country. 
+
+The timeline will also be variable and can interchange between the specific details of the mass shooting with quick, quantifiable data such as data about the shooter.  
+
 
 ## Gallery Examples:
 
