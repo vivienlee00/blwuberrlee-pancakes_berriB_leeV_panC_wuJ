@@ -28,4 +28,4 @@ Both of these gallery examples are similar to the idea that we have, as they bot
 
 ## Sketch:
 
-![Image of timeline](https://octodex.github.com/images/yaktocat.png)
+![Image of timeline](blwuberrlee-pancakes_berriB_leeV_panC_wuJ/image1.jpg)
