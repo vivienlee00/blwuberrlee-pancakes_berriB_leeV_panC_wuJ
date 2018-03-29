@@ -1,4 +1,4 @@
-#Team Blwuberrlee Pancakes
+# Team Blwuberrlee Pancakes
 
 Because Team Team was off-limits
 
@@ -27,3 +27,5 @@ https://github.com/marmelab/EventDrops
 Both of these gallery examples are similar to the idea that we have, as they both feature a horizontal timeline format. Ordered by date, each event is represented as a single line or dot on the timeline that the user can then hover over to get more information on the event.
 
 ## Sketch:
+
+![Image of timeline](https://octodex.github.com/images/yaktocat.png)
