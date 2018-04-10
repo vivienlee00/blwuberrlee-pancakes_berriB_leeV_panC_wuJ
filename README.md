@@ -21,9 +21,9 @@ Through this, our user will be able to gain insight on questions such as “How 
 
 ## D3 Features:
 
-There will be a pie chart that can be filled with variable data. Such examples include percentages of gender, race, age range, and number of deaths. The chart may be interchanged with such information to give the viewer a general trend of mass shootings around the country. 
+The timeline can be expanded/zoomed into. For example, when zoomed out all the way, the timeline shows all 50 years of data, but the user can choose a specific decade, click on it, and then the timeline stretches to only show the decade on-screen. This continues to a single-year view as well. 
 
-The timeline will also be variable and can interchange between the specific details of the mass shooting with quick, quantifiable data such as data about the shooter.  
+The timeline will also be a "heat map": depending on the view, each time interval will be shaded differently based on number of occurances. For example, a decade with more occurances of shootings will be shaded darker than a decade with fewer.
 
 
 ## Gallery Examples:
