@@ -20,4 +20,7 @@ added more to readme, linked submodule in project repo
 
 bayanB -- 2018-04-10 12:56:25
 created the flask app and added an html file
-
+carolP -- 2018-04-10 13:17:00
+created a file to convert csv data to sqlite3 database
+vivienL -- 2018-04-10 13:17:30
+created css file and updated readME
