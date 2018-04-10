@@ -1,0 +1,19 @@
+'''
+blwuberrlee pancakes
+
+
+'''
+import csv
+import sqlite3
+
+global db
+
+def connect():
+    f = "../data/shootings.db"
+    db = sqlite3.connect(f. check_same_thread = False)
+    return db.cursor
+
+def terminate():
+    db.commit()
+    db.close()
+    return
