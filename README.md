@@ -36,4 +36,4 @@ Both of these gallery examples are similar to the idea that we have, as they bot
 
 ## Sketch:
 
-![Image of timeline](https://raw.githubusercontent.com/vivienlee00/blwuberrlee-pancakes_berriB_leeV_panC_wuJ/master/image1.jpg)
+![Image of timeline](https://raw.githubusercontent.com/vivienlee00/blwuberrlee-pancakes_berriB_leeV_panC_wuJ/master/img/image1.jpg)
