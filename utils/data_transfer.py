@@ -3,6 +3,7 @@ blwuberrlee pancakes
 
 
 '''
+
 import csv
 import sqlite3
 
@@ -50,7 +51,12 @@ def transfer():
     connect()
     openfile()
     for r in reader:
-        c.execute(command, (r["S#"], r["Title"], r["Location"], r["Date"], r["Summary"], r["Fatalities"], r["Injured"], r["Total victims"], r["Mental Health Issues"], r["Race"], r["Gender"], r["Latitude"], r["Longitude"]))
+        try:
+            summary = r["Summary"].decode('utf-8')
+        except:
+            summary = "Cannot display summary"
+        c.execute(command, (r["S#"], r["Title"], r["Location"], r["Date"], summary, r["Fatalities"], r["Injured"], r["Total victims"], r["Mental Health Issues"], r["Race"], r["Gender"], r["Latitude"], r["Longitude"]))
+        db.commit()
     closefile()
     terminate()
     return
