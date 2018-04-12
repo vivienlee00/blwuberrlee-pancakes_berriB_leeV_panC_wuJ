@@ -58,6 +58,12 @@ created css file and updated readME
 bayanB -- 2018-04-10 13:18:36
 started js
 
+joyceW -- 2018-04-11 13:17:20
+did research on stacked bar graphs in d3
+
 vivienL -- 2018-04-11 19:34:50
 added d3 axis to svg 
+
+joyceW -- 2018-04-11 23:55:14
+tried to add stacked horizontal bar graph, but it's not working and I don't know why 
 
