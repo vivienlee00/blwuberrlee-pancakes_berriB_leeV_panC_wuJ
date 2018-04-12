@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from util import api
 from util import images
+from utils import database as db #db.get_all() returns all sample data
 import random
 from math import *
 
