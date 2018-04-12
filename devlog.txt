@@ -1,5 +1,31 @@
 Team Team -- Vivien Lee (PM), Bayan Berri, Carol Pan, Joyce Wu
 Period 7
+
+/////////// Zone of Reflection \\\\\\\\\\\
+------------------------------------------
+OBSTACLES OVERCOME
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+wow we so BOSS bc...
+
+UNRESOLVED ISSUES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+blah blah pesky bug...
+
+COOL STUFF LEARNED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+wow! oo!...
+
+
+MID-DEVELOPMENT DESIGN CHANGES
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+LESSONS LEARNED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tales of wisdom gained...
+
+||||||||||||||||||||||||||||||||||||||||||
+
  ______   ______   __   __   __       ______   _______     
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\    
 \:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__  
@@ -13,17 +39,25 @@ firstL -- TIMESTAMP\n
 
 leeV -- 2018-03-27 18:41:32
 Created repo, devlog, and log.sh files!
+
 bayanB -- 2018-03-28 20:42:55
 added section 1 to readme
+
 leeV -- 2018-03-28 23:11:25
 added more to readme, linked submodule in project repo
 
 bayanB -- 2018-04-10 12:56:25
 created the flask app and added an html file
+
 carolP -- 2018-04-10 13:17:00
 created a file to convert csv data to sqlite3 database
+
 vivienL -- 2018-04-10 13:17:30
 created css file and updated readME
+
 bayanB -- 2018-04-10 13:18:36
 started js
+
+vivienL -- 2018-04-11 19:34:50
+added d3 axis to svg 
 
