@@ -12,7 +12,7 @@ body{
     shape-rendering: crispEdges;  /* Round any decimal pixels so it'll render nicely */
 }
 
-.chart div {
+.chart svg {
     font: 10px sans-serif;
     background-color: steelblue;
     text-align: right;
