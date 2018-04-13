@@ -34,8 +34,8 @@
 //   console.log(decades);
 // });
 
-var decades = [25, 30, 15, 50, 80]; //dummy data representing # shootings in decade
-
+var decades = [8,22,48,44,196]; //dummy data representing # shootings in decade
+var decadenum = 0;
 
 var svg=d3.select("svg");
 var width= svg.attr("width");
@@ -73,8 +73,30 @@ bar.append("rect")
   .on("mousemove",function(){
     var xPos=d3.mouse(this)[0];
     var yPos=d3.mouse(this)[1];
+    var xPosAbs=d3.mouse(bar.node())[0];
+    console.log(xPosAbs);
     tooltip.attr("transform","translate("+xPos+","+yPos+")");
-    tooltip.select("text").text("TEXT HERE");
+    var shootingsnum = 0;
+    if (xPosAbs > 1200){
+      shootingsnum = 196;
+    }
+    else if (xPosAbs > 900)
+    {
+      shootingsnum = 44;
+    }
+    else if (xPosAbs > 600)
+    {
+      shootingsnum = 48;
+    }
+    else if (xPosAbs > 300)
+    {
+      shootingsnum = 22;
+    }
+    else if (xPosAbs > 000)
+    {
+      shootingsnum = 8;
+    }
+    tooltip.select("text").text(shootingsnum + " mass shootings have occurred during this decade");
   });
 var tooltip=svg.append("g")
     .attr("class",tooltip)
