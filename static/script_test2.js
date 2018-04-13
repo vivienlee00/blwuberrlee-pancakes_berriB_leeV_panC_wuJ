@@ -10,9 +10,11 @@ var width = svg.attr("width");
 var height = svg.attr("height");
 var barHeight = 50; //height of timeline blocks
 
+/*
 var x = d3.scale.linear()
     .domain([0, 2010]) //years
     .range([0, height]);
+*/
 
 var chart = d3.select(".chart")
     .attr("width", width)
@@ -21,7 +23,7 @@ var chart = d3.select(".chart")
 var bar = chart.selectAll("g")
     .data(decades)
   .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(" + i * (width/5) + ",0)"; });
+    .attr("transform", function(d, i) { return "translate(" + i * (width/5) + "," + ((height/2)-(barHeight/2)) +")"; });
 
   console.log("hi");
   bar.append("rect")
