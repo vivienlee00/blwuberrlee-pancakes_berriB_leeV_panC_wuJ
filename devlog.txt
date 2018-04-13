@@ -67,6 +67,12 @@ added d3 axis to svg
 joyceW -- 2018-04-11 23:55:14
 tried to add stacked horizontal bar graph, but it's not working and I don't know why 
 
+joyceW -- 2018-04-12 18:27:06
+added bottom rectangles and changed opacity according to number of shootings with dummy data
+
 bayanB -- 2018-04-12 23:08:29
 Worked on tooltips Now when you hover over the timeline/bar graph it gives you a textbox/tooltip which just says TEXTHERE when we get the data together we can put it in the insert text here portion of the code
 
+joyceW -- 2018-04-12 23:54:28
+had trouble manipulating csv file with js
+need to sudo npm -g install http-server, run http-server and run html page on localhost:8080/
