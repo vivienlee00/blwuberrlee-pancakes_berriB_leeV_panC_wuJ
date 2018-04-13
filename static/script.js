@@ -6,6 +6,34 @@ SoftDev2 pd7
 //                          VAR DECLARATION
 //======================================================================
 
+//need to fix data parsing
+// var years = []; //initializing list of arrays
+// //finds total number of shootings per decade
+// d3.csv("../data/shootings.csv", function(data){
+//   for (var i = 0; i < data.length; i++) {
+//     //takes date of data and retrieves the year, adds to array
+//     years.push(parseInt(data[i].Date.split("/")[2]));
+//   }
+//   console.log(years);
+//
+//   //counts total number of shootings per decade
+//   var decades = []; //initialize empty list
+//   var count = 0; //initial 0
+//   console.log(years.length);
+//   for (var i = 0; i < years.length; i++){
+//     var year = 1970; //starting year
+//     console.log(years[i]);
+//     if (years[i] > year){
+//       decades.push(count);
+//       count = 0;
+//       year = year + 10; //decade increment
+//     }
+//     count += 1;
+//   }
+//
+//   console.log(decades);
+// });
+
 var decades = [25, 30, 15, 50, 80]; //dummy data representing # shootings in decade
 
 
