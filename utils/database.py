@@ -19,7 +19,7 @@ import sqlite3
 #open database
 def open_db():
     global db
-    f = "../data/dataset.db"
+    f = "data/dataset.db"
     db = sqlite3.connect(f, check_same_thread = False)
     return db.cursor()
 
@@ -76,5 +76,5 @@ def by_year():
 #========================================
 
 #print get_all()
-print by_decade()
+#print by_decade()
 #print by_decade().get("1990")
