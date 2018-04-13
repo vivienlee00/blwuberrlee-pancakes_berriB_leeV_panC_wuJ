@@ -7,6 +7,10 @@
 
 ''' List of methods
 get_all() - retrieves all data stored in database
+
+by_decade() - parses data and counts by decade
+
+by_year() - parses data and counts by year
 '''
 
 global db
@@ -15,7 +19,7 @@ import sqlite3
 #open database
 def open_db():
     global db
-    f = "data/sample.db"
+    f = "../data/dataset.db"
     db = sqlite3.connect(f, check_same_thread = False)
     return db.cursor()
 
@@ -43,4 +47,33 @@ def get_all():
     return data
 #========================================
 
-print get_all()
+#Return Instance By Decade
+#----------------------------------------
+def by_decade():
+    data = get_all()
+    ret = {}
+    for entry in data:
+        decade = entry[3][-4:-1] + "0"
+        if decade in ret:
+            ret[decade] += 1;
+        else:
+            ret[decade] = 1;
+    return ret
+#========================================
+
+#Return Instance By Year
+#----------------------------------------
+def by_year():
+    data = get_all()
+    ret = {}
+    for entry in data:
+        year = entry[3][-4:]
+        if decade in ret:
+            ret[decade] += 1;
+        else:
+            ret[decade] = 1;
+    return ret
+#========================================
+
+#print get_all()
+#print by_decade()
