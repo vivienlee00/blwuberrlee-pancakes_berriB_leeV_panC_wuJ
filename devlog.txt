@@ -64,8 +64,15 @@ did research on stacked bar graphs in d3
 vivienL -- 2018-04-11 19:34:50
 added d3 axis to svg 
 
+carolP -- 2018-04-11 20:23:00
+method created to count data entries by decade and by year
+
 joyceW -- 2018-04-11 23:55:14
 tried to add stacked horizontal bar graph, but it's not working and I don't know why 
+
+carolP -- 2018-04-12 12:24:00
+replicated database methods in javascript
+notes: trying to parse files while website is loading reduces the speed of the website. Perhaps we should stick to dbs.
 
 joyceW -- 2018-04-12 18:27:06
 added bottom rectangles and changed opacity according to number of shootings with dummy data
