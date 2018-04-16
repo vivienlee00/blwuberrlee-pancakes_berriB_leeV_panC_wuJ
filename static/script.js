@@ -69,10 +69,12 @@ var bar = chart.selectAll("g")
     .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; });
 
 console.log("hi");
+
 bar.append("rect")
     .attr("width", ((width-30)/5))
     .attr("height", barHeight)
   .style("fill-opacity", function(d) {return d/100.; })
+
   .on("mouseover",function(){//TOOLTIP STARTS HERE!!
     tooltip.style("display",null);
 

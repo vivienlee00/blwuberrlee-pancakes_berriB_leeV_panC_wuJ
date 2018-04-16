@@ -83,3 +83,6 @@ Worked on tooltips Now when you hover over the timeline/bar graph it gives you a
 joyceW -- 2018-04-12 23:54:28
 had trouble manipulating csv file with js
 need to sudo npm -g install http-server, run http-server and run html page on localhost:8080/
+bayanB -- 2018-04-16 12:57:43
+fixed the shades to be increasing w the number of shootings per decade
+
