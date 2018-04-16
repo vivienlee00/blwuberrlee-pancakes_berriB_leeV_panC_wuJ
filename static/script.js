@@ -44,7 +44,7 @@ var create_decades_array = function(){
 // decades = create_decades_array();
 // console.log(decades);
 
-var decades = [2, 8, 22, 48, 44, 196];
+var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
 
 var svg=d3.select("svg");
@@ -66,12 +66,12 @@ var chart = d3.select(".chart")
 var bar = chart.selectAll("g")
     .data(decades)
     .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(" + i * (width/5) + "," + ((height/2)-(barHeight/2)) +")"; });
+    .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; });
 
 console.log("hi");
 bar.append("rect")
-  .attr("width", width/5)
-  .attr("height", barHeight)
+    .attr("width", ((width-30)/5))
+    .attr("height", barHeight)
   .style("fill-opacity", function(d) {return d/100.; })
   .on("mouseover",function(){//TOOLTIP STARTS HERE!!
     tooltip.style("display",null);
@@ -119,11 +119,18 @@ tooltip.append("text")
 
 
 var xScale = d3.scaleLinear()
-    .domain([1967, 2017])
-    .range([0, width]);
+    .domain([1970, 2020])
+    .range([15, width-15]);
 //.range([margin.left, width - margin.right]);
 
 var xAxis = d3.axisBottom(xScale);
+
+var rectangle = svg.append("rect")
+    .attr("x", (width-15-(0.3 * (width-30)/5)))
+    .attr("y", ((height-barHeight)/2)-10)
+    .attr("width", (0.3 * (width-30)/5)+10)
+    .attr("height", barHeight+10)
+    .attr("fill", "white");
 
 var bottomaxis = svg.append("g")
 bottomaxis.call(xAxis);
