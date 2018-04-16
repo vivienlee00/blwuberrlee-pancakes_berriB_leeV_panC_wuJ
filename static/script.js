@@ -44,7 +44,7 @@ var create_decades_array = function(){
 // decades = create_decades_array();
 // console.log(decades);
 
-var decades = [2, 8, 22, 48, 44, 196];
+var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
 
 var svg=d3.select("svg");
@@ -69,10 +69,14 @@ var bar = chart.selectAll("g")
     .attr("transform", function(d, i) { return "translate(" + i * (width/5) + "," + ((height/2)-(barHeight/2)) +")"; });
 
 console.log("hi");
+
 bar.append("rect")
   .attr("width", width/5)
   .attr("height", barHeight)
-  .style("fill-opacity", function(d) {return d/100.; })
+  .style("fill-opacity", function(d) {
+    console.log("D/100CHECKITOUT");
+    console.log(d/100);
+    return d/100.; })
   .on("mouseover",function(){//TOOLTIP STARTS HERE!!
     tooltip.style("display",null);
 
