@@ -89,3 +89,6 @@ fixed the shades to be increasing w the number of shootings per decade
 vivienL -- 2018-04-16 13:18:24
 Fixed scaling of axis
 
+carolP -- 2018-04-16 13:18:44
+fixed scaling of axis
+
