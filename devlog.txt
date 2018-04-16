@@ -86,3 +86,6 @@ need to sudo npm -g install http-server, run http-server and run html page on lo
 bayanB -- 2018-04-16 12:57:43
 fixed the shades to be increasing w the number of shootings per decade
 
+vivienL -- 2018-04-16 13:18:24
+Fixed scaling of axis
+
