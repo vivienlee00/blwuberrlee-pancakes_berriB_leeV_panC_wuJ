@@ -134,6 +134,7 @@ var rectangle = svg.append("rect")
     .attr("y", ((height-barHeight)/2)-10)
     .attr("width", (0.3 * (width-30)/5)+10)
     .attr("height", barHeight+10)
+    .attr("id", "whitebox")
     .attr("fill", "white");
 
 var bottomaxis = svg.append("g")
@@ -152,7 +153,11 @@ document.getElementById("0").addEventListener("click", function()
   bar.append("rect")
   .attr("width", ((width-30)/10))
   .attr("height", barHeight)
-  .style("fill-opacity", function(d) {console.log("yeo"); return d/100.; })
+  .style("fill-opacity", function(d) {return d/100.; })
+
+  xScale.domain([1970,1979]);
+  bottomaxis.call(xAxis);
+  document.getElementById("whitebox").style.display = "none";
 }
 seventiestf = true;
 }
