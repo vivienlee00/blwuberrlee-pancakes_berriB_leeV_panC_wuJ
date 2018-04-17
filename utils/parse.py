@@ -55,9 +55,11 @@ def gender_decade():
     current_y = 2010
     for shooting in data:
         if int(shooting["Date"].split("/")[2]) >= current_y:
-            if shooting["Gender"] == "Male":
+            if shooting["Gender"].lower() == "male"\
+              or shooting["Gender"].lower() == "m":
                 m += 1
-            elif shooting["Gender"] == "Female":
+            elif shooting["Gender"].lower() == "female"\
+              or shooting["Gender"].lower() == "f":
                 f += 1
             else:
                 u += 1
@@ -100,4 +102,71 @@ def mental_health_issues_decade():
         f.write("\nMental Health Data per Decade [yes, no, unknown]: \n")
         f.write(str(d))
         f.close()
+    return
 #mental_health_issues_decade()
+        
+def race_by_decade():
+    d = {}
+    for shooting in data:
+        #get the decade
+        decade = int(shooting["Date"][-4:-1] + "0");
+        #if decade not already in dict, instantialize
+        if not decade in d:
+            d[decade] = {"White":0, "Black":0, "Latino": 0, "Asian" : 0, "Unknown" : 0, "Other" : 0}
+            
+        #sort input
+        if "white" in shooting["Race"].lower():
+            d[decade]["White"] += 1
+        elif "black" in shooting["Race"].lower():
+            d[decade]["Black"] += 1
+        elif "latino" in shooting["Race"].lower():
+            d[decade]["Latino"] += 1
+        elif "asian" in shooting["Race"].lower():
+            d[decade]["Asian"] += 1
+        elif "unknown" in shooting["Race"].lower():
+            d[decade]["Unknown"] += 1
+        else:
+            d[decade]["Other"] += 1
+
+    #dump data and file write        
+    s = json.dumps(d)
+    with open('../data/parsed_info.txt', 'a') as f:
+        f.write("\n Race by Decade \n")
+        f.write(s)
+        f.close()
+    return
+
+#race_by_decade();
+
+def race_by_year():
+    d = {}
+    for shooting in data:
+        #get the year
+        year = int(shooting["Date"][-4:]);
+        #if decade not already in dict, instantialize
+        if not year in d:
+            d[year] = {"White":0, "Black":0, "Latino": 0, "Asian" : 0, "Unknown" : 0, "Other" : 0}
+            
+        #sort input
+        if "white" in shooting["Race"].lower():
+            d[year]["White"] += 1
+        elif "black" in shooting["Race"].lower():
+            d[year]["Black"] += 1
+        elif "latino" in shooting["Race"].lower():
+            d[year]["Latino"] += 1
+        elif "asian" in shooting["Race"].lower():
+            d[year]["Asian"] += 1
+        elif "unknown" in shooting["Race"].lower():
+            d[year]["Unknown"] += 1
+        else:
+            d[year]["Other"] += 1
+
+    #dump data and file write        
+    s = json.dumps(d)
+    with open('../data/parsed_info.txt', 'a') as f:
+        f.write("\n Race by Year \n")
+        f.write(s)
+        f.close()
+    return
+
+race_by_year()
