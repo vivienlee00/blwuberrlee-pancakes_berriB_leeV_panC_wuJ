@@ -83,6 +83,13 @@ Worked on tooltips Now when you hover over the timeline/bar graph it gives you a
 joyceW -- 2018-04-12 23:54:28
 had trouble manipulating csv file with js
 need to sudo npm -g install http-server, run http-server and run html page on localhost:8080/
+
+joyceW -- 2018-04-13 12:08:17
+parsed csv file with js
+
+joyceW -- 2018-04-16 11:14:56
+converted csv file to json file; decided to use python to parse through information instead because of ease
+
 bayanB -- 2018-04-16 12:57:43
 fixed the shades to be increasing w the number of shootings per decade
 
@@ -91,4 +98,8 @@ Fixed scaling of axis
 
 carolP -- 2018-04-16 13:18:44
 fixed scaling of axis
+
+joyceW -- 2018-04-16 23:38:16
+parsed data for total number of shootings, gender, and mental health issues per decade
+created new file called parsed_info.txt for all info
 
