@@ -47,6 +47,9 @@ var create_decades_array = function(){
 var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
 
+var seventies = [1,2,3,4,5,6,7,8,9,10];
+var seventiestf = false;
+
 var svg=d3.select("svg");
 var width= svg.attr("width");
 var height= svg.attr("height");
@@ -66,9 +69,8 @@ var chart = d3.select(".chart")
 var bar = chart.selectAll("g")
     .data(decades)
     .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; });
-
-console.log("hi");
+    .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+    .attr("id", function(d, i) { return i;});
 
 bar.append("rect")
     .attr("width", ((width-30)/5))
@@ -137,6 +139,29 @@ var rectangle = svg.append("rect")
 var bottomaxis = svg.append("g")
 bottomaxis.call(xAxis);
 bottomaxis.attr("transform", "translate(0," + 375 + ")");
+
+
+
+document.getElementById("0").addEventListener("click", function()
+{ if (seventiestf == false){
+  bar.data(seventies)
+  .enter().append("g")
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  .attr("id", function(d, i) { return i;});
+
+  bar.append("rect")
+  .attr("width", ((width-30)/10))
+  .attr("height", barHeight)
+  .style("fill-opacity", function(d) {console.log("yeo"); return d/100.; })
+}
+seventiestf = true;
+}
+);
+
+
+
+
+
 //TOOLTIP:
 /*
 var div = d3.select("body").append("div")
