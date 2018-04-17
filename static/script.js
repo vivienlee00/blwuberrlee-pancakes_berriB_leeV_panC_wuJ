@@ -47,7 +47,7 @@ var create_decades_array = function(){
 var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
 
-var seventies = [1,2,3,4,5,6,7,8,9,10];
+var seventies = [1,2,3,4,5,6,7,8,9];
 var seventiestf = false;
 
 var svg=d3.select("svg");
@@ -70,12 +70,14 @@ var bar = chart.selectAll("g")
     .data(decades)
     .enter().append("g")
     .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
-    .attr("id", function(d, i) { return i;});
+    .attr("id", function(d, i) { return i;})
+    .attr("class", "decade");
 
 bar.append("rect")
     .attr("width", ((width-30)/5))
     .attr("height", barHeight)
-  .style("fill-opacity", function(d) {return d/100.; })
+    .style("fill-opacity", function(d) {return d/100.; })
+    .style("fill", "red")
 
   .on("mouseover",function(){//TOOLTIP STARTS HERE!!
     tooltip.style("display",null);
@@ -144,27 +146,70 @@ bottomaxis.attr("transform", "translate(0," + 375 + ")");
 
 
 document.getElementById("0").addEventListener("click", function()
-{ if (seventiestf == false){
-  bar.data(seventies)
-  .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
-  .attr("id", function(d, i) { return i;});
+					      { if (seventiestf == false){
+						  
+						  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/9))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+						  
+						  bar.selectAll("rect")
+						      .attr("width", ((width-30)/9))
+						      .attr("height", barHeight)
+						      .style("fill-opacity", function(d) {return d/100.; })
+						  
+						  xScale.domain([1970,1979]);
+						  bottomaxis.call(xAxis);
+						  document.getElementById("whitebox").style.display = "none";
 
-  bar.append("rect")
-  .attr("width", ((width-30)/10))
-  .attr("height", barHeight)
-  .style("fill-opacity", function(d) {return d/100.; })
+						  bar.data(seventies)
+						      .enter().append("g")
+						      .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/9))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+						      .attr("id", function(d, i) { return i;})
+						      .attr("class", "year");
 
-  xScale.domain([1970,1979]);
-  bottomaxis.call(xAxis);
-  document.getElementById("whitebox").style.display = "none";
-}
-seventiestf = true;
-}
-);
+						  var bar2 = chart.selectAll(".year");
+						  bar2.data(seventies)
 
+						  bar2.append("rect")
+						      .attr("width", ((width-30)/9))
+						      .attr("height", barHeight)
+						      .style("fill", "red")
+						      .style("fill-opacity", function(d) {return d/100.; })
+					      }
+						seventiestf = true;
+					      }
+					     );
 
+document.getElementById("1").addEventListener("click", function()
+					      { if (seventiestf == false){
+						  
+						  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/9))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+						  
+						  bar.selectAll("rect")
+						      .attr("width", ((width-30)/9))
+						      .attr("height", barHeight)
+						      .style("fill-opacity", function(d) {return d/100.; })
+						  
+						  xScale.domain([1970,1979]);
+						  bottomaxis.call(xAxis);
+						  document.getElementById("whitebox").style.display = "none";
 
+						  bar.data(seventies)
+						      .enter().append("g")
+						      .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/9))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+						      .attr("id", function(d, i) { return i;})
+						      .attr("class", "year");
+
+						  var bar2 = chart.selectAll(".year");
+						  bar2.data(seventies)
+
+						  bar2.append("rect")
+						      .attr("width", ((width-30)/9))
+						      .attr("height", barHeight)
+						      .style("fill", "red")
+						      .style("fill-opacity", function(d) {return d/100.; })
+					      }
+						seventiestf = true;
+					      }
+					     );
 
 
 //TOOLTIP:
