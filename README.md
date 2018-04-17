@@ -1,6 +1,7 @@
 # Team Blwuberrlee Pancakes
 
-Because Team Team was off-limits
+(Because Team Team was off-limits)
+By: Bayan Berri, Vivien Lee, Carol Pan, and Joyce Wu
 
 
 ## Description of data set:

@@ -106,3 +106,5 @@ created new file called parsed_info.txt for all info
 vivienL -- 2018-04-17 00:14:32
 clicking the first decade expands into ten one-year intervals
 
+joyceW -- 2018-04-17 13:07:26
+started donut chart in separate file, will finish today
