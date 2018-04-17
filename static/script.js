@@ -89,18 +89,18 @@ bar.append("rect")
     console.log(xPosAbs);
     tooltip.attr("transform","translate("+xPos+","+yPos+")");
     var shootingsnum = 0;
-    if (xPosAbs > 1200){
+    if (xPosAbs > 1176){
       shootingsnum = 196;
     }
-    else if (xPosAbs > 900)
+    else if (xPosAbs > 882)
     {
       shootingsnum = 44;
     }
-    else if (xPosAbs > 600)
+    else if (xPosAbs > 588)
     {
       shootingsnum = 48;
     }
-    else if (xPosAbs > 300)
+    else if (xPosAbs > 294)
     {
       shootingsnum = 22;
     }
