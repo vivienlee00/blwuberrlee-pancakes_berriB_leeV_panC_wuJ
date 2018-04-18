@@ -6,7 +6,7 @@ SoftDev2 pd7
 var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
 
-var seventies = [1,2,3,4,5,6,7,8,9,10];
+var seventies = [10,20,30,40,50,60,70,80,90,100];
 var seventiestf = false;
 
 var eighties = [1,2,3,4,5,6,7,8,9,10];
@@ -113,7 +113,8 @@ bottomaxis.attr("transform", "translate(0," + 375 + ")");
 
 
 document.getElementById("0").addEventListener("click", function()
-{ if (seventiestf == false){
+{
+  if (seventiestf == false){
 
   xScale.domain([1970,1980]);
   bottomaxis.call(xAxis);
@@ -144,10 +145,11 @@ document.getElementById("0").addEventListener("click", function()
   .attr("height", barHeight)
   .style("fill-opacity", function(d) {return d/100.; })
 
-}
+  bar.transition().duration(10000).style("width", ((width-30)/10));
+//bar.selectAll("rect").transition().duration(10000).style("width", ((width-30)/10));
+  }
 seventiestf = true;
-}
-);
+});
 
 
 document.getElementById("1").addEventListener("click", function()
