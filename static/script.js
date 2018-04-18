@@ -137,7 +137,7 @@ document.getElementById("0").addEventListener("click", function()
   //adding rectangles to our timeline to represent each year in a given decade
   var barEnter = bar.append("rect");
 
-  bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+  bar.transition().duration(1000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
 
 
   //barEnter.transition().duration(1000).style("fill", "green");
@@ -146,7 +146,7 @@ document.getElementById("0").addEventListener("click", function()
   .style("fill", "red")
   .style("fill-opacity", function(d) {return d/100.; });
 
-  barEnter.transition().duration(5000).style("width", ((width-30)/10));
+  barEnter.transition().duration(1000).style("width", ((width-30)/10));
 
   }
 seventiestf = true;
