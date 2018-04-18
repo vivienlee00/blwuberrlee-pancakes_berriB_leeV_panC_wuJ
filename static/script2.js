@@ -302,35 +302,37 @@ currenttf = true;
 
 
 //gender data for 2010-2020
-var gender = [{"gender": 'Male', "count": 152},
-{"gender": 'Female', "count": 2},
-{"gender": 'Unknown', "count": 42}];
-
+var gender = {1970: [6, 1, 0], 1980: [20, 1, 0], 1990: [47, 0, 0], 2000: [41, 1, 1], 2010: [169, 2, 25]};
+var item = ["Male", "Female", "Unknown"];
 var radius = 150;
 var g = svg.append("g").attr("transform", "translate(" + 750 + "," + 550 + ")");
 var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-var pie = d3.pie()
-    .sort(null)
-    .value(function(d) { return d.count; });
 
-var path = d3.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
-
-var label = d3.arc()
-    .outerRadius(radius - 40)
-    .innerRadius(radius - 40);
-
-var arc = g.selectAll(".arc")
-    .data(pie(gender))
-    .enter().append("g")
-    .attr("class", "arc");
-
-arc.append("path")
-    .attr("d", path)
-    .attr("fill", function(d) { return color(d.data.gender); });
-
-arc.append("text")
-    .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
-    .attr("dy", "0.35em")
-    .text(function(d) { return d.data.gender; });
+var update = function(year){
+    var pie = d3.pie()
+	.sort(null)
+	.value(function(d) { return d; });
+    
+    var path = d3.arc()
+	.outerRadius(radius - 10)
+	.innerRadius(0);
+    
+    var label = d3.arc()
+	.outerRadius(radius - 40)
+	.innerRadius(radius - 40);
+    
+    var arc = g.selectAll(".arc")
+	.data(pie(gender))
+	.enter().append("g")
+	.attr("class", "arc");
+    
+    arc.append("path")
+	.data(pie(title))
+	.attr("d", path)
+	.attr("fill", function(d) { return color(d.data.gender); });
+    
+    arc.append("text")
+	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+	.attr("dy", "0.35em")
+	.text(function(d) { return d.data.gender; });
+}
