@@ -5,7 +5,7 @@ Total Number of Shootings per Decade:
 [7, 21, 47, 43, 196]
 
 Gender Data per decade [Male, Female, Unknown]:
-[[6, 1, 0], [20, 1, 0], [47, 0, 0], [41, 1, 1], [152, 2, 42]]
+[[6, 1, 0], [20, 1, 0], [47, 0, 0], [41, 1, 1], [169, 2, 25]]
 
 Mental Health Data per Decade [Yes, No, Unknown]:
 [[5, 1, 1], [16, 3, 2], [24, 21, 2], [16, 22, 5], [41, 42, 113]]
