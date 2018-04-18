@@ -39,3 +39,30 @@ Both of these gallery examples are similar to the idea that we have, as they bot
 
 ![Image of timeline](https://raw.githubusercontent.com/vivienlee00/blwuberrlee-pancakes_berriB_leeV_panC_wuJ/master/static/img/image1.jpg)
 
+## How to Use:
+
+### 1. 
+
+You will need to download Flask to run a Flask app! To do this, create a virtual environment with any name.
+```
+$ pip install virtualenv
+$ virtualenv <name>
+```
+On Mac/Linux, start up your venv with:
+```
+$ . <name>/bin/activate
+```
+On Windows:
+```
+$ . <name>/Scripts/activate
+```
+In your activated venv, run the following:
+```
+$ pip install flask
+```
+### 2. Run the python file `app.py`.
+```
+$ python app.py
+```
+### 3. Open up `localhost:5000` in any web browser
+### 4. Check out our data!
