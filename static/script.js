@@ -166,6 +166,8 @@ document.getElementById("1").addEventListener("click", function()
 					      }
 					     );
 
+
+
 //gender data for 2010-2020
 var g = [{"gender": 'Male', "count": 152},
 	 {"gender": 'Female', "count": 2},
@@ -174,9 +176,9 @@ var g = [{"gender": 'Male', "count": 152},
 var pie = d3.layout.pie()
             .value(function(d) {return d.count; })
             .sort(null);
-var width = 300;
-var height = 300;
-var outerRadius = width/2;
+var width2 = 300;
+var height2 = 300;
+var outerRadius = width2/2;
 var innerRadius = 100;
 var color = d3.scale.category20();
 var arc = d3.arc()
