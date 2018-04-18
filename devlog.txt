@@ -117,3 +117,6 @@ added launch instructions to readME
 vivienL -- 2018-04-18 01:08:52
 implemented year by year view for each decade
 
+vivienL -- 2018-04-18 02:56:16
+transitions work!
+

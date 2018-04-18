@@ -116,37 +116,38 @@ document.getElementById("0").addEventListener("click", function()
 {
   if (seventiestf == false){
 
+//rescale x-axis
   xScale.domain([1970,1980]);
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
 
-  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
-
-  console.log(bar.selectAll("rect").data());
+  //bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
 
   bar.selectAll("rect").remove();
 
   bar.data(seventies)
   .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
   .attr("id", function(d, i) { return i;})
   .attr("class", "time year");
 
   bar = chart.selectAll(".time");
+  //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
 
-  bar.append("rect")
-  .attr("width", ((width-30)/10))
-  .attr("height", barHeight)
+  //adding rectangles to our timeline to represent each year in a given decade
+  var barEnter = bar.append("rect");
+
+  bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+
+
+  //barEnter.transition().duration(1000).style("fill", "green");
+  barEnter.attr("height", barHeight)
+  .style("width", ((width-30)/5))
   .style("fill", "red")
-  .style("fill-opacity", function(d) {return d/100.; })
+  .style("fill-opacity", function(d) {return d/100.; });
 
-  bar.selectAll("rect")
-  .attr("width", ((width-30)/10))
-  .attr("height", barHeight)
-  .style("fill-opacity", function(d) {return d/100.; })
+  barEnter.transition().duration(5000).style("width", ((width-30)/10));
 
-  bar.transition().duration(10000).style("width", ((width-30)/10));
-//bar.selectAll("rect").transition().duration(10000).style("width", ((width-30)/10));
   }
 seventiestf = true;
 });
