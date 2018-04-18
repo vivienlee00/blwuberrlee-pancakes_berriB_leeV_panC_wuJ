@@ -2,47 +2,6 @@
   BlwuBerrLee-Pancakes
   SoftDev2 pd7
 */
-//======================================================================
-//                          VAR DECLARATION
-//======================================================================
-
-var create_decades_array = function(){
-  //need to fix data parsing
-  var years = []; //initializing list of arrays
-  var decades = [];
-  //finds total number of shootings per decade
-  d3.csv("../data/shootings.csv", function(data){
-    for (var i = 0; i < data.length; i++) {
-      //takes date of data and retrieves the year, adds to array
-      years.push(parseInt(data[i].Date.split("/")[2]));
-    }
-    years.reverse(); //reverses list to oldest to newest years
-    console.log(years);
-
-    //counts total number of shootings per decade
-    var count = 0; //initial 0
-    console.log(years.length);
-    var year = 1970; //starting year
-    for (var i = 0; i < years.length; i++){
-      //console.log(years);
-      if (years[i] >= year){
-        //console.log(years[i]);
-        //console.log(year);
-        decades.push(count);
-        count = 0;
-        year = year + 10; //decade increment
-      }
-      count += 1;
-    }
-    //pushes # of shootings for last decade
-    decades.push(count);
-    console.log(decades);
-  });
-  return decades;
-};
-
-// decades = create_decades_array();
-// console.log(decades);
 
 var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
@@ -57,10 +16,6 @@ var barHeight = 50; //height of timeline blocks
 
 
 var margin = { top: 40, right: 40, bottom: 100, left: 40 };
-
-var setup=function(){
-
-}
 
 var chart = d3.select(".chart")
     .attr("width", width)
@@ -147,14 +102,14 @@ bottomaxis.attr("transform", "translate(0," + 375 + ")");
 
 document.getElementById("0").addEventListener("click", function()
 					      { if (seventiestf == false){
-						  
+
 						  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/9))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
-						  
+
 						  bar.selectAll("rect")
 						      .attr("width", ((width-30)/9))
 						      .attr("height", barHeight)
 						      .style("fill-opacity", function(d) {return d/100.; })
-						  
+
 						  xScale.domain([1970,1979]);
 						  bottomaxis.call(xAxis);
 						  document.getElementById("whitebox").style.display = "none";
@@ -180,14 +135,14 @@ document.getElementById("0").addEventListener("click", function()
 
 document.getElementById("1").addEventListener("click", function()
 					      { if (seventiestf == false){
-						  
+
 						  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/9))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
-						  
+
 						  bar.selectAll("rect")
 						      .attr("width", ((width-30)/9))
 						      .attr("height", barHeight)
 						      .style("fill-opacity", function(d) {return d/100.; })
-						  
+
 						  xScale.domain([1970,1979]);
 						  bottomaxis.call(xAxis);
 						  document.getElementById("whitebox").style.display = "none";
@@ -210,6 +165,32 @@ document.getElementById("1").addEventListener("click", function()
 						seventiestf = true;
 					      }
 					     );
+
+//gender data for 2010-2020
+var g = [{"gender": 'Male', "count": 152},
+	 {"gender": 'Female', "count": 2},
+	 {"gender": 'Unknown', "count": 42}];
+
+var pie = d3.layout.pie()
+            .value(function(d) {return d.count; })
+            .sort(null);
+var width = 300;
+var height = 300;
+var outerRadius = width/2;
+var innerRadius = 100;
+var color = d3.scale.category20();
+var arc = d3.arc()
+            .outerRadius(outerRadius)
+            .innerRadius(innerRadius);
+
+var donut = svg.selectAll('path')
+              .data(pie(g))
+              .enter().append('path')
+              .attr("d", arc)
+              .style("fill", function(d) {return color(d.data.gender); });
+donut.append("path")
+     .attr("d", arc)
+     .style("fill", function(d) {return color(d.data.gender);});
 
 
 //TOOLTIP:
