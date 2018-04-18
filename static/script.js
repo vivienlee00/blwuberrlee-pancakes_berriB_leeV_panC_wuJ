@@ -5,6 +5,7 @@ SoftDev2 pd7
 
 var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
+var decadestf = true;
 
 var seventies = [10,20,30,40,50,60,70,80,90,100];
 var seventiestf = false;
@@ -58,27 +59,29 @@ bar.append("rect")
   var yPos=d3.mouse(this)[1];
   var xPosAbs=d3.mouse(bar.node())[0];
   tooltip.attr("transform","translate("+xPos+","+yPos+")");
-  var shootingsnum = 0;
-  if (xPosAbs > 1176){
-    shootingsnum = 196;
-  }
-  else if (xPosAbs > 882)
-  {
-    shootingsnum = 44;
-  }
-  else if (xPosAbs > 588)
-  {
-    shootingsnum = 48;
-  }
-  else if (xPosAbs > 294)
-  {
-    shootingsnum = 22;
-  }
-  else if (xPosAbs > 000)
-  {
-    shootingsnum = 8;
-  }
-  tooltip.select("text").text(shootingsnum + " mass shootings have occurred during this decade");
+    var shootingsnum = 0;
+    if (decadestf){
+	if (xPosAbs > 1176){
+	    shootingsnum = 196;
+	}
+	else if (xPosAbs > 882)
+	{
+	    shootingsnum = 44;
+	}
+	else if (xPosAbs > 588)
+	{
+	    shootingsnum = 48;
+	}
+	else if (xPosAbs > 294)
+	{
+	    shootingsnum = 22;
+	}
+	else if (xPosAbs > 000)
+	{
+	    shootingsnum = 8;
+	}
+    }
+    tooltip.select("text").text(shootingsnum + " mass shootings have occurred during this decade");
 });
 
 var tooltip=svg.append("g")
@@ -114,7 +117,9 @@ bottomaxis.attr("transform", "translate(0," + 375 + ")");
 
 document.getElementById("0").addEventListener("click", function()
 {
-  if (seventiestf == false){
+    if (seventiestf == false && decadestf){
+
+	decadestf = false;
 
 //rescale x-axis
   xScale.domain([1970,1980]);
@@ -154,7 +159,10 @@ seventiestf = true;
 
 
 document.getElementById("1").addEventListener("click", function()
-{ if (eightiestf == false){
+					      { if (eightiestf == false && decadestf){
+
+						  	decadestf = false;
+
 
   xScale.domain([1980,1990]);
   bottomaxis.call(xAxis);
@@ -191,8 +199,11 @@ eightiestf = true;
 );
 
 document.getElementById("2").addEventListener("click", function()
-{ if (ninetiestf == false){
+{ if (ninetiestf == false && decadestf){
 
+	decadestf = false;
+
+    
   xScale.domain([1990,2000]);
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
@@ -228,8 +239,11 @@ ninetiestf = true;
 );
 
 document.getElementById("3").addEventListener("click", function()
-{ if (thousandstf == false){
+{ if (thousandstf == false && decadestf){
 
+	decadestf = false;
+
+    
   xScale.domain([2000,2010]);
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
@@ -265,8 +279,11 @@ thousandstf = true;
 );
 
 document.getElementById("4").addEventListener("click", function()
-{ if (currenttf == false){
+{ if (currenttf == false && decadestf){
 
+	decadestf = false;
+
+    
   xScale.domain([2010,2018]);
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";

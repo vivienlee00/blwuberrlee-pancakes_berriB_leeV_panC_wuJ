@@ -74,7 +74,7 @@ def gender_decade():
         f.write("\nGender Data per decade [Male, Female, Unknown]:\n")
         f.write(str(d))
         f.close()
-# gender_decade()
+#gender_decade()
 
 #Mental Health issues per decade
 def mental_health_issues_decade():
@@ -169,4 +169,4 @@ def race_by_year():
         f.close()
     return
 
-race_by_year()
+#race_by_year()
