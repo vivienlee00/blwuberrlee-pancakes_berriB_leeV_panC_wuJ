@@ -41,8 +41,9 @@ var bar = chart.selectAll("g")
 .attr("id", function(d, i) { return i;})
 .attr("class", "time year");
 
-var tooltip=svg.append("rect")
-.attr("class",tooltip);
+var tooltip=svg.append("div")
+    .attr("class",tooltip)
+tooltip.text("tooltip");
 // .style("font-size","1.25em")
 // .attr("font-weight","bold");
 
@@ -57,14 +58,17 @@ bar.append("rect")
          //.attr("fill", "black");
   tooltip.html("<b>hello</b>")
          .style("display","block")
-         .text("yo")
          .style("stroke", 'grey')
          .attr("border", 1)
          .attr("width", 1465)
          .attr("height", 475)
          .attr("x", 20)
          .attr("y", 200)
-         .style("fill", "white");
+        .style("fill", "white");
+    svg.append("text")
+	.text("yoooooooo")
+	.attr("x", 75)
+        .attr("y", 250);
  var shootingsnum = 0;
  if (decadestf){
    	if (d3.select(this).attr("id") == 0){
@@ -362,61 +366,3 @@ var update = function(year){
 	    }
 	});
 }
-
-//TOOLTIP:
-/*
-var div = d3.select("body").append("div")
-.attr("class", "tooltip")
-.style("opacity", 0);
-*/
-/*
-var color = d3.scale.category20(); //a color scale that d3 has built in!
-var data = [
-[{y:21},{y:10},{y:10},{y:38},{y:20}],
-[{y:14},{y:25},{y:21},{y:10},{y:10}],
-[{y:14},{y:35},{y:21},{y:10},{y:4}]
-];
-
-var stack = d3.layout.stack();
-stack(data); //stackifying the data
-
-var max = d3.max(data, function(d) {
-return d3.max(d, function(v) {
-return v.y + v.y0
-})
-})
-
-var height = 416;
-var yscale = d3.scale.linear()
-.domain([0, max])
-.range([0, height]);
-
-var group = svg.append("g") //create a group so you can move everything around together
-.attr("transform", "translate(" + [100, 100] + ")")
-
-var layers = group.selectAll("g")
-.data(data)
-.enter()
-.append("g")
-.style({
-fill: function(d,i) { return color(i) }
-})
-
-var stacks = layers.selectAll("rect")
-.data(function(d) { return d }) //create one shape for each data point
-.enter()
-.append("rect")
-.attr({
-width: 30,
-height: function(d,i) {
-return yscale(d.y)
-},
-x: function(d,i) {
-return i * 40 //this is just a way to make the bars a certain distance apart
-},
-y: function(d,i) {
-return height - yscale(d.y0 + d.y) //subtract cause you flip it!
-}
-
-})
-*/
