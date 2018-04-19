@@ -135,3 +135,6 @@ working pie chart
 carolP -- 2018-04-18 20:38:32
 dynamic pie chart
 
+bayanB -- 2018-04-19 13:15:13
+commented the code and cleaning it up
+
