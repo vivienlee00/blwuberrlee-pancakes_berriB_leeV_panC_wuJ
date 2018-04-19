@@ -37,7 +37,7 @@ var chart = d3.select(".chart")
 var bar = chart.selectAll("g")
 .data(decades)
 .enter().append("g")
-.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
 .attr("id", function(d, i) { return i;})
 .attr("class", "time year");
 
@@ -111,7 +111,7 @@ var rectangle = svg.append("rect")
 
 var bottomaxis = svg.append("g")
 bottomaxis.call(xAxis);
-bottomaxis.attr("transform", "translate(0," + 375 + ")");
+bottomaxis.attr("transform", "translate(0," + 100 + ")");
 
 
 
@@ -126,13 +126,13 @@ document.getElementById("0").addEventListener("click", function()
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
 
-  //bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  //bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
   bar.selectAll("rect").remove();
 
   bar.data(seventies)
   .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
   .attr("id", function(d, i) { return i;})
   .attr("class", "time year");
 
@@ -142,7 +142,7 @@ document.getElementById("0").addEventListener("click", function()
   //adding rectangles to our timeline to represent each year in a given decade
   var barEnter = bar.append("rect");
 
-  bar.transition().duration(1000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+  bar.transition().duration(1000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; })
 
 
   //barEnter.transition().duration(1000).style("fill", "green");
@@ -168,7 +168,7 @@ document.getElementById("1").addEventListener("click", function()
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
 
-  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
   console.log(bar.selectAll("rect").data());
 
@@ -176,7 +176,7 @@ document.getElementById("1").addEventListener("click", function()
 
   bar.data(eighties)
   .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
   .attr("id", function(d, i) { return i;})
   .attr("class", "time year");
 
@@ -203,12 +203,12 @@ document.getElementById("2").addEventListener("click", function()
 
 	decadestf = false;
 
-    
+
   xScale.domain([1990,2000]);
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
 
-  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
   console.log(bar.selectAll("rect").data());
 
@@ -216,7 +216,7 @@ document.getElementById("2").addEventListener("click", function()
 
   bar.data(nineties)
   .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
   .attr("id", function(d, i) { return i;})
   .attr("class", "time year");
 
@@ -243,12 +243,12 @@ document.getElementById("3").addEventListener("click", function()
 
 	decadestf = false;
 
-    
+
   xScale.domain([2000,2010]);
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
 
-  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
   console.log(bar.selectAll("rect").data());
 
@@ -256,7 +256,7 @@ document.getElementById("3").addEventListener("click", function()
 
   bar.data(thousands)
   .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
   .attr("id", function(d, i) { return i;})
   .attr("class", "time year");
 
@@ -283,12 +283,12 @@ document.getElementById("4").addEventListener("click", function()
 
 	decadestf = false;
 
-    
+
   xScale.domain([2010,2018]);
   bottomaxis.call(xAxis);
   document.getElementById("whitebox").style.display = "none";
 
-  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/8))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/8))+15)+ ",125)"; })
 
   console.log(bar.selectAll("rect").data());
 
@@ -296,7 +296,7 @@ document.getElementById("4").addEventListener("click", function()
 
   bar.data(current)
   .enter().append("g")
-  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/8))+15)+ "," + ((height/2)-(barHeight/2)) +")"; })
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/8))+15)+ ",125)"; })
   .attr("id", function(d, i) { return i;})
   .attr("class", "time year");
 
