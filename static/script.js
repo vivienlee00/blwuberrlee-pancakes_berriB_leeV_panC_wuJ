@@ -52,36 +52,37 @@ bar.append("rect")
 
 })
 .on("mouseout",function(){
-  tooltip.style("display","none");
+	tooltip.style("display","none");
 })
 .on("mousemove",function(){
-  var xPos=d3.mouse(this)[0];
-  var yPos=d3.mouse(this)[1];
-  var xPosAbs=d3.mouse(bar.node())[0];
-  tooltip.attr("transform","translate("+xPos+","+yPos+")");
+    var xPos=d3.mouse(this)[0];
+    var yPos=d3.mouse(this)[1];
+    var xPosAbs=d3.mouse(bar.node())[0];
+    tooltip.attr("transform","translate("+xPos+","+yPos+")");
     var shootingsnum = 0;
     if (decadestf){
 	if (xPosAbs > 1176){
-	    shootingsnum = 196;
+	    shootingsnum = 4;
 	}
 	else if (xPosAbs > 882)
 	{
-	    shootingsnum = 44;
+	    shootingsnum = 3;
 	}
 	else if (xPosAbs > 588)
 	{
-	    shootingsnum = 48;
+	    shootingsnum = 2;
 	}
 	else if (xPosAbs > 294)
 	{
-	    shootingsnum = 22;
+	    shootingsnum = 1;
 	}
 	else if (xPosAbs > 000)
 	{
-	    shootingsnum = 8;
+	    shootingsnum = 0;
 	}
     }
-    tooltip.select("text").text(shootingsnum + " mass shootings have occurred during this decade");
+    tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
+    update(shootingsnum)
 });
 
 var tooltip=svg.append("g")
@@ -321,31 +322,48 @@ currenttf = true;
 
 
 //gender data for 2010-2020
-var g = [{"gender": 'Male', "count": 152},
-{"gender": 'Female', "count": 2},
-{"gender": 'Unknown', "count": 42}];
+var gender = [[{'count': 6, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 20, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 47, 'gender': 'Male'}, {'count': 0, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 42, 'gender': 'Male'}, {'count': 2, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 173, 'gender': 'Male'}, {'count': 6, 'gender': 'Female'}, {'count': 21, 'gender': 'Unknown'}]];
+var radius = 150;
+var g = svg.append("g").attr("transform", "translate(" + 750 + "," + 550 + ")");
+var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+var pie = d3.pie()
+    .sort(null)
+    .value(function(d) { return d.count; });
 
-var pie = d3.layout.pie()
-.value(function(d) {return d.count; })
-.sort(null);
-var width2 = 300;
-var height2 = 300;
-var outerRadius = width2/2;
-var innerRadius = 100;
-var color = d3.scale.category20();
-var arc = d3.arc()
-.outerRadius(outerRadius)
-.innerRadius(innerRadius);
+var path = d3.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
 
-var donut = svg.selectAll('path')
-.data(pie(g))
-.enter().append('path')
-.attr("d", arc)
-.style("fill", function(d) {return color(d.data.gender); });
-donut.append("path")
-.attr("d", arc)
-.style("fill", function(d) {return color(d.data.gender);});
+var label = d3.arc()
+    .outerRadius(radius - 40)
+    .innerRadius(radius - 40);
 
+
+var update = function(year){
+    d3.selectAll("#piechart").remove();
+    
+    var arc = g.selectAll(".arc")
+	.data(pie(gender[year]))
+	.enter().append("g")
+	.attr("class", "arc")
+	.attr("id","piechart")
+
+    arc.append("path")
+	.attr("d", path)
+	.attr("fill", function(d) {return color(d.data.gender); });
+    
+    arc.append("text")
+	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+	.attr("dy", "0.35em")
+	.text(function(d) {
+	    if (d.data.count > 0){
+		return d.data.gender;
+	    }
+	    else{
+		return "";
+	    }
+	});
+}
 
 //TOOLTIP:
 /*
