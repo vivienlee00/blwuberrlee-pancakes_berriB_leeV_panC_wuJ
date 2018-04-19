@@ -2,13 +2,15 @@
 BlwuBerrLee-Pancakes
 SoftDev2 pd7
 */
-
-var decades = [8, 22, 48, 44, 196];
+//=======================================
+//             VARIABLE DECLARATIONS
+//=======================================
+var decades = [8, 22, 48, 44, 196];//number of shootings per decade
 var decadenum = 0;
 var decadestf = true;
 
 var seventies = [10,20,30,40,50,60,70,80,90,100];
-var seventiestf = false;
+var seventiestf = false;//default is false until pressed on
 
 var eighties = [1,2,3,4,5,6,7,8,9,10];
 var eightiestf = false;
@@ -22,6 +24,7 @@ var thousandstf = false;
 var current = [1,2,3,4,5,6,7,8];
 var currenttf = false;
 
+//Svg related variable declarations
 var svg=d3.select("svg");
 var width= svg.attr("width");
 var height= svg.attr("height");
@@ -29,11 +32,15 @@ var barHeight = 50; //height of timeline blocks
 
 
 var margin = { top: 40, right: 40, bottom: 100, left: 40 };
+//==========================================
+//           D3 BEGINS
+//==========================================
 
 var chart = d3.select(".chart")
 .attr("width", width)
-.attr("height", height);
+.attr("height", height);// fixes the height and width of the svg
 
+//Timeline creation
 var bar = chart.selectAll("g")
 .data(decades)
 .enter().append("g")
@@ -41,9 +48,9 @@ var bar = chart.selectAll("g")
 .attr("id", function(d, i) { return i;})
 .attr("class", "time year");
 
-var tooltip=svg.append("div")
-    .attr("class",tooltip)
-tooltip.text("tooltip");
+//Creating the tool tip
+var tooltip=svg.append("rect")
+.attr("class",tooltip);
 // .style("font-size","1.25em")
 // .attr("font-weight","bold");
 
@@ -52,23 +59,20 @@ bar.append("rect")
 .attr("height", barHeight)
 .style("fill-opacity", function(d) {return d/100.; })
 .style("fill", "red")
-.on("mouseover",function(d){//TOOLTIP STARTS HERE!!
+.on("mouseover",function(d){//style and attributes for tooltip
   tooltip.transition()
          .duration(200);
          //.attr("fill", "black");
   tooltip.html("<b>hello</b>")
          .style("display","block")
+         .text("yo")
          .style("stroke", 'grey')
          .attr("border", 1)
          .attr("width", 1465)
          .attr("height", 475)
          .attr("x", 20)
          .attr("y", 200)
-        .style("fill", "white");
-    svg.append("text")
-	.text("yoooooooo")
-	.attr("x", 75)
-        .attr("y", 250);
+         .style("fill", "white");
  var shootingsnum = 0;
  if (decadestf){
    	if (d3.select(this).attr("id") == 0){
@@ -84,7 +88,7 @@ bar.append("rect")
    	}
   }
  tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
- update(shootingsnum);
+ update(shootingsnum);//fill in text for the tooltip
 })
 .on("mouseout",function(){
 	tooltip.style("display","none");
@@ -121,12 +125,15 @@ bar.append("rect")
 //     update(shootingsnum);
 // });
 
+//creating the x axis for the timeline
+
 var xScale = d3.scaleLinear()
-.domain([1970, 2020])
+.domain([1970, 2020])//the domain is from 1970-2020 
 .range([15, width-15]);
 //.range([margin.left, width - margin.right]);
 
 var xAxis = d3.axisBottom(xScale);
+
 
 var bottomaxis = svg.append("g")
 bottomaxis.call(xAxis);
@@ -165,7 +172,9 @@ document.getElementById("0").addEventListener("click", function()
   barEnter.attr("height", barHeight)
   .style("width", ((width-30)/5))
   .style("fill", "red")
-  .style("fill-opacity", function(d) {return d/100.; });
+	    .style("fill-opacity", function(d) {
+		return d/100.;
+	    });
 
   barEnter.transition().duration(1000).style("width", ((width-30)/10));
 
@@ -366,3 +375,61 @@ var update = function(year){
 	    }
 	});
 }
+
+//TOOLTIP:
+/*
+var div = d3.select("body").append("div")
+.attr("class", "tooltip")
+.style("opacity", 0);
+*/
+/*
+var color = d3.scale.category20(); //a color scale that d3 has built in!
+var data = [
+[{y:21},{y:10},{y:10},{y:38},{y:20}],
+[{y:14},{y:25},{y:21},{y:10},{y:10}],
+[{y:14},{y:35},{y:21},{y:10},{y:4}]
+];
+
+var stack = d3.layout.stack();
+stack(data); //stackifying the data
+
+var max = d3.max(data, function(d) {
+return d3.max(d, function(v) {
+return v.y + v.y0
+})
+})
+
+var height = 416;
+var yscale = d3.scale.linear()
+.domain([0, max])
+.range([0, height]);
+
+var group = svg.append("g") //create a group so you can move everything around together
+.attr("transform", "translate(" + [100, 100] + ")")
+
+var layers = group.selectAll("g")
+.data(data)
+.enter()
+.append("g")
+.style({
+fill: function(d,i) { return color(i) }
+})
+
+var stacks = layers.selectAll("rect")
+.data(function(d) { return d }) //create one shape for each data point
+.enter()
+.append("rect")
+.attr({
+width: 30,
+height: function(d,i) {
+return yscale(d.y)
+},
+x: function(d,i) {
+return i * 40 //this is just a way to make the bars a certain distance apart
+},
+y: function(d,i) {
+return height - yscale(d.y0 + d.y) //subtract cause you flip it!
+}
+
+})
+*/

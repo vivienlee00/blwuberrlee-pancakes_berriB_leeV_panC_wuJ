@@ -1,9 +1,5 @@
 body{
-    /* background: url(../img/bg-pattern.png),#7b4397;
-    background: url(../img/bg-pattern.png),-webkit-linear-gradient(to left,#7b4397,#dc2430);
-    background: url(../img/bg-pattern.png),linear-gradient(to left,#7b4397,#dc2430);
-    color: white; */
-    font-family: Helvetica;
+    font-family: Arial;
 }
 
 .axis path, .axis line {
@@ -28,4 +24,18 @@ body{
 
 .arc path {
   stroke: #fff;
+}
+
+button {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    background-color: white;
+    color: black;
+    border: 2px solid #FF748C; /* Green */
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #FF748C; /* Green */
+    color: white;
 }
