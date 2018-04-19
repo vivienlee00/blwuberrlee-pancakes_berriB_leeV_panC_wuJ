@@ -41,63 +41,81 @@ var bar = chart.selectAll("g")
 .attr("id", function(d, i) { return i;})
 .attr("class", "time year");
 
+var tooltip=svg.append("rect")
+.attr("class",tooltip);
+// .style("font-size","1.25em")
+// .attr("font-weight","bold");
+
 bar.append("rect")
 .attr("width", ((width-30)/5))
 .attr("height", barHeight)
 .style("fill-opacity", function(d) {return d/100.; })
 .style("fill", "red")
-
-.on("mouseover",function(){//TOOLTIP STARTS HERE!!
-  tooltip.style("display","block");
-
+.on("mouseover",function(d){//TOOLTIP STARTS HERE!!
+  tooltip.transition()
+         .duration(200);
+         //.attr("fill", "black");
+  tooltip.html("<b>hello</b>")
+         .style("display","block")
+         .text("yo")
+         .style("stroke", 'grey')
+         .attr("border", 1)
+         .attr("width", 1465)
+         .attr("height", 475)
+         .attr("x", 20)
+         .attr("y", 200)
+         .style("fill", "white");
+ var shootingsnum = 0;
+ if (decadestf){
+   	if (d3.select(this).attr("id") == 0){
+   	    shootingsnum = 4;
+   	// }else if (xPosAbs > 882){
+   	//     shootingsnum = 3;
+   	// }else if (xPosAbs > 588){
+   	//     shootingsnum = 2;
+   	// }else if (xPosAbs > 294){
+   	//     shootingsnum = 1;
+   	// }else if (xPosAbs > 000){
+   	//     shootingsnum = 0;
+   	}
+  }
+ tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
+ update(shootingsnum);
 })
 .on("mouseout",function(){
-	tooltip.style("display","block");
-})
-.on("mousemove",function(){
-    var xPos=d3.mouse(this)[0];
-    var yPos=d3.mouse(this)[1];
-    var xPosAbs=d3.mouse(bar.node())[0];
-    tooltip.attr("transform","translate("+xPos+","+yPos+")");
-    var shootingsnum = 0;
-    if (decadestf){
-	if (xPosAbs > 1176){
-	    shootingsnum = 4;
-	}
-	else if (xPosAbs > 882)
-	{
-	    shootingsnum = 3;
-	}
-	else if (xPosAbs > 588)
-	{
-	    shootingsnum = 2;
-	}
-	else if (xPosAbs > 294)
-	{
-	    shootingsnum = 1;
-	}
-	else if (xPosAbs > 000)
-	{
-	    shootingsnum = 0;
-	}
-    }
-    tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
-    update(shootingsnum)
+	tooltip.style("display","none");
 });
-
-var tooltip=svg.append("g")
-.attr("class",tooltip)
-.style("stroke", 'black')
-.attr("border", 1)
-.attr("width", 200)
-.attr("height", 200)
-.attr("fill", "black");
-tooltip.append("text")
-.attr("x",15)
-.attr("dy","1.2em")
-.style("font-size","1.25em")
-.attr("font-weight","bold");
-
+// .on("mousemove",function(){
+//     var xPos=d3.mouse(this)[0];
+//     var yPos=d3.mouse(this)[1];
+//     var xPosAbs=d3.mouse(bar.node())[0];
+//     tooltip.attr("transform","translate("+100+","+250+")");
+//
+//     var shootingsnum = 0;
+//     if (decadestf){
+// 	if (xPosAbs > 1176){
+// 	    shootingsnum = 4;
+// 	}
+// 	else if (xPosAbs > 882)
+// 	{
+// 	    shootingsnum = 3;
+// 	}
+// 	else if (xPosAbs > 588)
+// 	{
+// 	    shootingsnum = 2;
+// 	}
+// 	else if (xPosAbs > 294)
+// 	{
+// 	    shootingsnum = 1;
+// 	}
+// 	else if (xPosAbs > 000)
+// 	{
+// 	    shootingsnum = 0;
+// 	}
+//     }
+//     tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
+//     update(shootingsnum);
+// });
 
 var xScale = d3.scaleLinear()
 .domain([1970, 2020])
@@ -106,19 +124,9 @@ var xScale = d3.scaleLinear()
 
 var xAxis = d3.axisBottom(xScale);
 
-var rectangle = svg.append("rect")
-.attr("x", (width-15-(0.3 * (width-30)/5)))
-.attr("y", ((height-barHeight)/2)-10)
-.attr("width", (0.3 * (width-30)/5)+10)
-.attr("height", barHeight+10)
-.attr("id", "whitebox")
-.attr("fill", "white");
-
 var bottomaxis = svg.append("g")
 bottomaxis.call(xAxis);
 bottomaxis.attr("transform", "translate(0," + 100 + ")");
-
-
 
 document.getElementById("0").addEventListener("click", function()
 {
@@ -129,7 +137,6 @@ document.getElementById("0").addEventListener("click", function()
 //rescale x-axis
   xScale.domain([1970,1980]);
   bottomaxis.call(xAxis);
-  document.getElementById("whitebox").style.display = "none";
 
   //bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
@@ -171,7 +178,6 @@ document.getElementById("1").addEventListener("click", function()
 
   xScale.domain([1980,1990]);
   bottomaxis.call(xAxis);
-  document.getElementById("whitebox").style.display = "none";
 
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
@@ -211,7 +217,6 @@ document.getElementById("2").addEventListener("click", function()
 
   xScale.domain([1990,2000]);
   bottomaxis.call(xAxis);
-  document.getElementById("whitebox").style.display = "none";
 
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
@@ -240,23 +245,16 @@ document.getElementById("2").addEventListener("click", function()
 
 }
 ninetiestf = true;
-}
-);
+});
 
 document.getElementById("3").addEventListener("click", function()
 { if (thousandstf == false && decadestf){
 
 	decadestf = false;
-
-
   xScale.domain([2000,2010]);
   bottomaxis.call(xAxis);
-  document.getElementById("whitebox").style.display = "none";
-
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
-
   console.log(bar.selectAll("rect").data());
-
   bar.selectAll("rect").remove();
 
   bar.data(thousands)
@@ -280,8 +278,7 @@ document.getElementById("3").addEventListener("click", function()
 
 }
 thousandstf = true;
-}
-);
+});
 
 document.getElementById("4").addEventListener("click", function()
 { if (currenttf == false && decadestf){
@@ -291,12 +288,9 @@ document.getElementById("4").addEventListener("click", function()
 
   xScale.domain([2010,2018]);
   bottomaxis.call(xAxis);
-  document.getElementById("whitebox").style.display = "none";
 
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/8))+15)+ ",125)"; })
-
   console.log(bar.selectAll("rect").data());
-
   bar.selectAll("rect").remove();
 
   bar.data(current)
@@ -346,7 +340,7 @@ var label = d3.arc()
 var update = function(year){
     d3.selectAll("#piechart").remove();
 
-    var arc = g.selectAll(".arc")
+    var arc = tooltip.selectAll(".arc")
 	.data(pie(gender[year]))
 	.enter().append("g")
 	.attr("class", "arc")
