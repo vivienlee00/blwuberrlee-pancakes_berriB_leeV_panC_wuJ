@@ -48,11 +48,11 @@ bar.append("rect")
 .style("fill", "red")
 
 .on("mouseover",function(){//TOOLTIP STARTS HERE!!
-  tooltip.style("display",null);
+  tooltip.style("display","block");
 
 })
 .on("mouseout",function(){
-	tooltip.style("display","none");
+	tooltip.style("display","block");
 })
 .on("mousemove",function(){
     var xPos=d3.mouse(this)[0];
@@ -87,7 +87,11 @@ bar.append("rect")
 
 var tooltip=svg.append("g")
 .attr("class",tooltip)
-.style("display","none");
+.style("stroke", 'black')
+.attr("border", 1)
+.attr("width", 200)
+.attr("height", 200)
+.attr("fill", "black");
 tooltip.append("text")
 .attr("x",15)
 .attr("dy","1.2em")
@@ -341,7 +345,7 @@ var label = d3.arc()
 
 var update = function(year){
     d3.selectAll("#piechart").remove();
-    
+
     var arc = g.selectAll(".arc")
 	.data(pie(gender[year]))
 	.enter().append("g")
@@ -351,7 +355,7 @@ var update = function(year){
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.gender); });
-    
+
     arc.append("text")
 	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
 	.attr("dy", "0.35em")
