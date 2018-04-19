@@ -109,27 +109,28 @@ def mental_health_issues_decade():
 #mental_health_issues_decade()
         
 def race_by_decade():
-    d = {}
+    d = []
+    temp = {}
     for shooting in data:
         #get the decade
         decade = int(shooting["Date"][-4:-1] + "0");
         #if decade not already in dict, instantialize
         if not decade in d:
-            d[decade] = {"White":0, "Black":0, "Latino": 0, "Asian" : 0, "Unknown" : 0, "Other" : 0}
+            d[decade] = [{"race" : "White", "count" : 0}, {"race" : "Black", "count" : 0}, {"race" : "Latino", "count" : 0}, {"race" : "Asian", "count" : 0}, {"race" : "Unknown", "count" : 0}, {"race" : "Other", "count" : 0}]
             
         #sort input
         if "white" in shooting["Race"].lower():
-            d[decade]["White"] += 1
+            d[decade][0]["count"] += 1
         elif "black" in shooting["Race"].lower():
-            d[decade]["Black"] += 1
+            d[decade][1]["count"] += 1
         elif "latino" in shooting["Race"].lower():
-            d[decade]["Latino"] += 1
+            d[decade][2]["count"] += 1
         elif "asian" in shooting["Race"].lower():
-            d[decade]["Asian"] += 1
+            d[decade][3]["count"] += 1
         elif "unknown" in shooting["Race"].lower():
-            d[decade]["Unknown"] += 1
+            d[decade][4]["count"] += 1
         else:
-            d[decade]["Other"] += 1
+            d[decade][5]["count"] += 1
 
     #dump data and file write        
     s = json.dumps(d)
@@ -139,7 +140,7 @@ def race_by_decade():
         f.close()
     return
 
-#race_by_decade();
+race_by_decade();
 
 def race_by_year():
     d = {}

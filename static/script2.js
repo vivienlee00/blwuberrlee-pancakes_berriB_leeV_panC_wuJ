@@ -77,7 +77,8 @@ bar.append("rect")
     shootingsnum = 0;
   }
     tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
-    update(shootingsnum)
+    updateG(shootingsnum);
+    updateR(shootingsnum);
 });
 
 var tooltip=svg.append("g")
@@ -305,8 +306,10 @@ currenttf = true;
 //gender data for 2010-2020
 var gender = [[{'count': 6, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 20, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 47, 'gender': 'Male'}, {'count': 0, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 42, 'gender': 'Male'}, {'count': 2, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 173, 'gender': 'Male'}, {'count': 6, 'gender': 'Female'}, {'count': 21, 'gender': 'Unknown'}]];
 var radius = 150;
-var g = svg.append("g").attr("transform", "translate(" + 750 + "," + 550 + ")");
+var gg = svg.append("g").attr("transform", "translate(" + 1000 + "," + 550 + ")");
+var gr = svg.append("g").attr("transform", "translate(" + 500 + "," + 550 + ")");
 var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
 var pie = d3.pie()
     .sort(null)
     .value(function(d) { return d.count; });
@@ -320,14 +323,14 @@ var label = d3.arc()
     .innerRadius(radius - 40);
 
 
-var update = function(year){
-    d3.selectAll("#piechart").remove();
+var updateG = function(year){
+    d3.selectAll("#piechartgender").remove();
     
-    var arc = g.selectAll(".arc")
+    var arc = gg.selectAll(".arc")
 	.data(pie(gender[year]))
 	.enter().append("g")
 	.attr("class", "arc")
-	.attr("id","piechart")
+	.attr("id","piechartgender")
 
     arc.append("path")
 	.attr("d", path)
@@ -345,4 +348,34 @@ var update = function(year){
 	    }
 	});
 }
-//update(0);
+
+var race ={"1990": [{"count": 30, "race": "White"}, {"count": 8, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 5, "race": "Asian"}, {"count": 3, "race": "Unknown"}, {"count": 2, "race": "Other"}], "1960": [{"count": 2, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2000": [{"count": 22, "race": "White"}, {"count": 11, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 5, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 6, "race": "Other"}], "1970": [{"count": 5, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2010": [{"count": 67, "race": "White"}, {"count": 59, "race": "Black"}, {"count": 5, "race": "Latino"}, {"count": 7, "race": "Asian"}, {"count": 37, "race": "Unknown"}, {"count": 21, "race": "Other"}], "1980": [{"count": 16, "race": "White"}, {"count": 4, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}]}
+
+
+var updateR = function(year){
+    d3.selectAll("#piechartrace").remove();
+    
+    var arc = gr.selectAll(".arc")
+	.data(pie(race[1970 + year * 10]))
+	.enter().append("g")
+	.attr("class", "arc")
+	.attr("id","piechartrace")
+
+    arc.append("path")
+	.attr("d", path)
+	.attr("fill", function(d) {return color(d.data.race); });
+    
+    arc.append("text")
+	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+	.attr("dy", "0.35em")
+	.text(function(d) {
+	    if (d.data.count > 0){
+		return d.data.race;
+	    }
+	    else{
+		return "";
+	    }
+	});
+}
+//updateG(0);
+//updateR(0);
