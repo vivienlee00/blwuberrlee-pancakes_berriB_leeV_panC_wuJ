@@ -123,3 +123,6 @@ transitions work!
 vivienL -- 2018-04-18 13:17:58
 fixed a bug with year view, added button
 
+bayanB -- 2018-04-19 12:49:39
+Updated the summary to the html so that the user can understand what's going on
+
