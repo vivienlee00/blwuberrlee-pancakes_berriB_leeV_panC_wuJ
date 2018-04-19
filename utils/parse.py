@@ -61,10 +61,13 @@ def gender_decade():
             elif shooting["Gender"].lower() == "female"\
               or shooting["Gender"].lower() == "f":
                 f += 1
-            else:
+            elif shooting["Gender"].lower() == "unknown":
                 u += 1
+            else:
+                m += 1
+                f += 1
         else:
-            d.append([m, f, u])
+            d.append([{"gender": "Male","count": m}, {"gender": "Female", "count": f},{"gender": "Unknown", "count":u}])
             current_y -= 10
             m = 0
             f = 0
