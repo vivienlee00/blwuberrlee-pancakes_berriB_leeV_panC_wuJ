@@ -196,28 +196,3 @@ def shootings_in_year(decade):
 #shootings_in_year(1990)
 #shootings_in_year(2000)
 #shootings_in_year(2010)
-
-def fatalities_per_decade(decade):
-    d = {"count":0, 1: "", 2: "", 3: ""}
-    temp = []
-    for shooting in data:
-        #get the year of the shooting
-        year = shooting["Date"][-4:]
-        if year[0:3] == str(decade)[0:3]: #if the decade matches
-            f = shooting["Fatalities"]
-            d["count"] += f
-
-            if temp.length == 0:
-                temp.append(shooting)
-            else:
-                for x in xrange(0, temp.length):
-                    if (shooting["Fatalities"] > x["Fatalities"]):
-                    
-
-    #dump data and file write        
-    s = json.dumps(d)
-    with open('../data/parsed_info.txt', 'a') as f:
-        f.write("\n\n Fatalities in a Decade: " + str(decade) + " \n")
-        f.write(s)
-        f.close()
-    return     
