@@ -1,11 +1,12 @@
-Team Team -- Vivien Lee (PM), Bayan Berri, Carol Pan, Joyce Wu
+Team BlwuBerrLee PanCakes -- Vivien Lee (PM), Bayan Berri, Carol Pan, Joyce Wu
 Period 7
 
 /////////// Zone of Reflection \\\\\\\\\\\
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wow we so BOSS bc...
+We started off verry unfamiliar with D3( especially after the break)
+But we familiarized ourselves with it through the project :)
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -13,16 +14,23 @@ blah blah pesky bug...
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wow! oo!...
-
+We learned how to use tooltips with D3.
+We also learned a lot of information on mass shootings
+We learned more about d3 because we were pretty confused in the beginning.
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+In the beginning our readme stated just to have a timeline with datapoints and we can hover over them to see information.
+We changed it to include an expanding timeline so that it fits in the screen.
+We also added a frequency color scheme (darker= more occurrences)
+We were originally going to use sqlite3 for our databases,
+but decided to convert it to a json and parse using python.
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-tales of wisdom gained...
+Dividing the workload to specific tasks per person makes things work out.
+Having different copies of the file is pretty efficient to reduce merge conflicts :)
+
 
 ||||||||||||||||||||||||||||||||||||||||||
 
@@ -150,3 +158,6 @@ added text to hovering, need to debug
 
 joyceW -- 2018-04-18 21:56:18
 hovering rectangle personalized to num shootings and pie charts
+bayanB -- 2018-04-20 12:54:46
+Filled in the top of the devlog
+
