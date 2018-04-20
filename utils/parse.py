@@ -192,7 +192,7 @@ def shootings_in_year(decade):
     return     
         
 #shootings_in_year(1970)
-shootings_in_year(1980)
-shootings_in_year(1990)
-shootings_in_year(2000)
-shootings_in_year(2010)
+#shootings_in_year(1980)
+#shootings_in_year(1990)
+#shootings_in_year(2000)
+#shootings_in_year(2010)
