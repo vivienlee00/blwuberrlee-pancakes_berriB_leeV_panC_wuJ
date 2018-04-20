@@ -28,18 +28,33 @@ var height= svg.attr("height");
 var barHeight = 50; //height of timeline blocks
 
 
+
+
+
 var margin = { top: 40, right: 40, bottom: 100, left: 40 };
 
 var chart = d3.select(".chart")
 .attr("width", width)
-.attr("height", height);
+    .attr("height", height);
+
+
+document.getElementById("decades").style.display = "none";
+
 
 var bar = chart.selectAll("g")
 .data(decades)
 .enter().append("g")
 .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
 .attr("id", function(d, i) { return i;})
-.attr("class", "time year");
+    .attr("class", "time year");
+
+var rectangle = svg.append("rect")
+.attr("x", (width-15-(0.3 * (width-30)/5)))
+.attr("y", 123)
+.attr("width", (0.3 * (width-30)/5)+10)
+.attr("height", barHeight+10)
+.attr("id", "whitebox")
+.attr("fill", "white")
 
 var tooltip=svg.append("svg");
 tooltip.attr("class","tooltip");
@@ -92,7 +107,9 @@ var xAxis = d3.axisBottom(xScale);
 
 var bottomaxis = svg.append("g")
 bottomaxis.call(xAxis);
-bottomaxis.attr("transform", "translate(0," + 100 + ")");
+    bottomaxis.attr("transform", "translate(0," + 100 + ")");
+
+
 
 document.getElementById("0").addEventListener("click", function()
 {
@@ -100,8 +117,14 @@ document.getElementById("0").addEventListener("click", function()
 	     decadestf = false;
 
 //rescale x-axis
-  xScale.domain([1970,1980]);
-  bottomaxis.call(xAxis);
+	xScale.domain([1970,1980]);
+	bottomaxis.call(xAxis);
+	document.getElementById("whitebox").style.display = "none";
+	        document.getElementById("empty").style.display = "none";
+
+	 document.getElementById("decades").style.display = "block";
+
+
 
   //bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
@@ -142,7 +165,13 @@ document.getElementById("1").addEventListener("click", function()
 
 
   xScale.domain([1980,1990]);
-  bottomaxis.call(xAxis);
+						  bottomaxis.call(xAxis);
+						  document.getElementById("whitebox").style.display = "none";
+						          document.getElementById("empty").style.display = "none";
+
+						   document.getElementById("decades").style.display = "block";
+
+
 
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
@@ -181,7 +210,13 @@ document.getElementById("2").addEventListener("click", function()
 
 
   xScale.domain([1990,2000]);
-  bottomaxis.call(xAxis);
+    bottomaxis.call(xAxis);
+    document.getElementById("whitebox").style.display = "none";
+            document.getElementById("empty").style.display = "none";
+
+     document.getElementById("decades").style.display = "block";
+
+
 
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
 
@@ -217,7 +252,14 @@ document.getElementById("3").addEventListener("click", function()
 
 	decadestf = false;
   xScale.domain([2000,2010]);
-  bottomaxis.call(xAxis);
+    bottomaxis.call(xAxis);
+    document.getElementById("whitebox").style.display = "none";
+            document.getElementById("empty").style.display = "none";
+
+     document.getElementById("decades").style.display = "block";
+
+
+    
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/10))+15)+ ",125)"; })
   console.log(bar.selectAll("rect").data());
   bar.selectAll("rect").remove();
@@ -252,7 +294,13 @@ document.getElementById("4").addEventListener("click", function()
 
 
   xScale.domain([2010,2018]);
-  bottomaxis.call(xAxis);
+    bottomaxis.call(xAxis);
+    document.getElementById("whitebox").style.display = "none";
+        document.getElementById("empty").style.display = "none";
+
+     document.getElementById("decades").style.display = "block";
+
+
 
   bar.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/8))+15)+ ",125)"; })
   console.log(bar.selectAll("rect").data());
@@ -370,3 +418,47 @@ var updateR = function(year){
 	    }
 	});
 }
+
+/*
+document.getElementById("decades").addEventListener("click", function(){
+    console.log("hi");
+    decadestf = true;
+
+    xScale.domain([1970,2020]);
+    bottomaxis.call(xAxis);
+    document.getElementById("whitebox").style.display = "block";
+    document.getElementById("empty").style.display = "block";
+
+    document.getElementById("decades").style.display = "none";
+    
+
+    bar.selectAll("rect").remove();
+    
+    bar.data(decades)
+	.enter().append("g")
+	.attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
+	.attr("id", function(d, i) { return i;})
+  .attr("class", "time decade");
+    
+    bar = chart.selectAll(".time");
+    //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+    
+  //adding rectangles to our timeline to represent each year in a given decade
+    var barEnter = bar.append("rect");
+    
+    bar.transition().duration(1000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; })
+    
+    
+    //barEnter.transition().duration(1000).style("fill", "green");
+    barEnter.attr("height", barHeight)
+	.style("width", ((width-30)/5))
+	.style("fill", "red")
+	.style("fill-opacity", function(d) {return d/100.; });
+
+    barEnter.transition().duration(1000).style("width", ((width-30)/10));
+
+  }
+
+});
+*/
+
