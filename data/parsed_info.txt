@@ -22,3 +22,19 @@ Gender Data per decade [Male, Female, Unknown]:
 
  Race by Decade 
 {"1990": [{"count": 30, "race": "White"}, {"count": 8, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 5, "race": "Asian"}, {"count": 3, "race": "Unknown"}, {"count": 2, "race": "Other"}], "1960": [{"count": 2, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2000": [{"count": 22, "race": "White"}, {"count": 11, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 5, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 6, "race": "Other"}], "1970": [{"count": 5, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2010": [{"count": 67, "race": "White"}, {"count": 59, "race": "Black"}, {"count": 5, "race": "Latino"}, {"count": 7, "race": "Asian"}, {"count": 37, "race": "Unknown"}, {"count": 21, "race": "Other"}], "1980": [{"count": 16, "race": "White"}, {"count": 4, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}]}
+
+
+ Shootings in a Decade: 1970 
+[0, 1, 1, 0, 2, 0, 2, 0, 0, 2]
+
+ Shootings in a Decade: 1980 
+[0, 0, 2, 2, 3, 2, 3, 1, 6, 3]
+
+ Shootings in a Decade: 1990 
+[1, 5, 4, 9, 4, 4, 3, 6, 5, 7]
+
+ Shootings in a Decade: 2000 
+[1, 2, 2, 3, 2, 3, 7, 10, 6, 8]
+
+ Shootings in a Decade: 2010 
+[2, 6, 15, 16, 14, 67, 69, 7, 0, 0]

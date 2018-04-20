@@ -109,8 +109,7 @@ def mental_health_issues_decade():
 #mental_health_issues_decade()
         
 def race_by_decade():
-    d = []
-    temp = {}
+    d = {}
     for shooting in data:
         #get the decade
         decade = int(shooting["Date"][-4:-1] + "0");
@@ -140,7 +139,7 @@ def race_by_decade():
         f.close()
     return
 
-race_by_decade();
+#race_by_decade();
 
 def race_by_year():
     d = {}
@@ -174,3 +173,26 @@ def race_by_year():
     return
 
 #race_by_year()
+
+
+def shootings_in_year(decade):
+    d = [0,0,0,0,0,0,0,0,0,0]
+    for shooting in data:
+        #get the year of the shooting
+        year = shooting["Date"][-4:]
+        if year[0:3] == str(decade)[0:3]: #if the decade matches
+            d[int(year[-1:])] += 1 #add in at right interval
+            
+    #dump data and file write        
+    s = json.dumps(d)
+    with open('../data/parsed_info.txt', 'a') as f:
+        f.write("\n\n Shootings in a Decade: " + str(decade) + " \n")
+        f.write(s)
+        f.close()
+    return     
+        
+#shootings_in_year(1970)
+shootings_in_year(1980)
+shootings_in_year(1990)
+shootings_in_year(2000)
+shootings_in_year(2010)
