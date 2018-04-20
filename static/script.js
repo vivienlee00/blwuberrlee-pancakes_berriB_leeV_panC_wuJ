@@ -41,11 +41,8 @@ var bar = chart.selectAll("g")
 .attr("id", function(d, i) { return i;})
 .attr("class", "time year");
 
-var tooltip=svg.append("div")
-    .attr("class",tooltip)
-tooltip.text("tooltip");
-// .style("font-size","1.25em")
-// .attr("font-weight","bold");
+var tooltip=svg.append("svg");
+tooltip.attr("class","tooltip");
 
 bar.append("rect")
 .attr("width", ((width-30)/5))
@@ -54,73 +51,37 @@ bar.append("rect")
 .style("fill", "red")
 .on("mouseover",function(d){//TOOLTIP STARTS HERE!!
   tooltip.transition()
-         .duration(200);
+         .duration(200)
+         .style("display","block");
          //.attr("fill", "black");
-  tooltip.html("<b>hello</b>")
-         .style("display","block")
+  tooltip.append("rect")
          .style("stroke", 'grey')
-         .attr("border", 1)
+         .style("border", 1)
          .attr("width", 1465)
          .attr("height", 475)
          .attr("x", 20)
          .attr("y", 200)
-        .style("fill", "white");
-    svg.append("text")
-	.text("yoooooooo")
-	.attr("x", 75)
-        .attr("y", 250);
+         .style("fill", "white");
  var shootingsnum = 0;
  if (decadestf){
-   	if (d3.select(this).attr("id") == 0){
-   	    shootingsnum = 4;
-   	// }else if (xPosAbs > 882){
-   	//     shootingsnum = 3;
-   	// }else if (xPosAbs > 588){
-   	//     shootingsnum = 2;
-   	// }else if (xPosAbs > 294){
-   	//     shootingsnum = 1;
-   	// }else if (xPosAbs > 000){
-   	//     shootingsnum = 0;
+   shootingsnum = d;
+   svg.append("text")
+      .text(shootingsnum + " mass shootings have occurred during this decade")
+      .attr("x", 75)
+      .attr("y", 250)
+      .attr("class", "shootings-text");
    	}
-  }
- tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
- update(shootingsnum);
+ updateG(decades.indexOf(shootingsnum));
+ updateR(decades.indexOf(shootingsnum));
 })
 .on("mouseout",function(){
+  //removes display of box
 	tooltip.style("display","none");
+  //removes all items in box
+  d3.selectAll(".shootings-text").remove();
+  d3.selectAll("#piechartgender").remove();
+  d3.selectAll("#piechartrace").remove();
 });
-// .on("mousemove",function(){
-//     var xPos=d3.mouse(this)[0];
-//     var yPos=d3.mouse(this)[1];
-//     var xPosAbs=d3.mouse(bar.node())[0];
-//     tooltip.attr("transform","translate("+100+","+250+")");
-//
-//     var decade = 0;
-//     if (decadestf){
-// 	if (xPosAbs > 1176){
-// 	    decade = 4;
-// 	}
-// 	else if (xPosAbs > 882)
-// 	{
-// 	    decade = 3;
-// 	}
-// 	else if (xPosAbs > 588)
-// 	{
-// 	    decade = 2;
-// 	}
-// 	else if (xPosAbs > 294)
-// 	{
-// 	    decade = 1;
-// 	}
-// 	else if (xPosAbs > 000)
-// 	{
-// 	    decade = 0;
-// 	}
-//     }
-//     tooltip.select("text").text(decades[decade] + " mass shootings have occurred during this decade");
-//     updateG(decade); //pie charts update
-//     updateR(decade); //as mouse moves along timeline
-// });
 
 var xScale = d3.scaleLinear()
 .domain([1970, 2020])
@@ -136,8 +97,7 @@ bottomaxis.attr("transform", "translate(0," + 100 + ")");
 document.getElementById("0").addEventListener("click", function()
 {
     if (seventiestf == false && decadestf){
-
-	decadestf = false;
+	     decadestf = false;
 
 //rescale x-axis
   xScale.domain([1970,1980]);
@@ -361,6 +321,7 @@ var updateG = function(year){
 	.enter().append("g")
 	.attr("class", "arc")
 	.attr("id","piechartgender")
+  .attr("transform", "translate(-100, -100)")
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.gender); });
@@ -392,13 +353,14 @@ var updateR = function(year){
 	.enter().append("g")
 	.attr("class", "arc")
 	.attr("id","piechartrace")
+  .attr("transform", "translate(-100, -100)") //moves pie chart
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.race); });
     //label
     arc.append("text")
 	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
-	.attr("dy", "0.35em")
+	.attr("dy", ".35em")
 	.text(function(d) {
 	    if (d.data.count > 0){//only label if there's data present
 		return d.data.race;
