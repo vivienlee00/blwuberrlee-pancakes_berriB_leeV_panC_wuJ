@@ -95,30 +95,31 @@ bar.append("rect")
 //     var xPosAbs=d3.mouse(bar.node())[0];
 //     tooltip.attr("transform","translate("+100+","+250+")");
 //
-//     var shootingsnum = 0;
+//     var decade = 0;
 //     if (decadestf){
 // 	if (xPosAbs > 1176){
-// 	    shootingsnum = 4;
+// 	    decade = 4;
 // 	}
 // 	else if (xPosAbs > 882)
 // 	{
-// 	    shootingsnum = 3;
+// 	    decade = 3;
 // 	}
 // 	else if (xPosAbs > 588)
 // 	{
-// 	    shootingsnum = 2;
+// 	    decade = 2;
 // 	}
 // 	else if (xPosAbs > 294)
 // 	{
-// 	    shootingsnum = 1;
+// 	    decade = 1;
 // 	}
 // 	else if (xPosAbs > 000)
 // 	{
-// 	    shootingsnum = 0;
+// 	    decade = 0;
 // 	}
 //     }
-//     tooltip.select("text").text(decades[shootingsnum] + " mass shootings have occurred during this decade");
-//     update(shootingsnum);
+//     tooltip.select("text").text(decades[decade] + " mass shootings have occurred during this decade");
+//     updateG(decade); //pie charts update
+//     updateR(decade); //as mouse moves along timeline
 // });
 
 var xScale = d3.scaleLinear()
@@ -322,44 +323,85 @@ currenttf = true;
 );
 
 
-
 //gender data for 2010-2020
 var gender = [[{'count': 6, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 20, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 47, 'gender': 'Male'}, {'count': 0, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 42, 'gender': 'Male'}, {'count': 2, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 173, 'gender': 'Male'}, {'count': 6, 'gender': 'Female'}, {'count': 21, 'gender': 'Unknown'}]];
+
+
+/************************************
+    basic stuff to set up pie chart
+*************************************/
 var radius = 150;
-var g = svg.append("g").attr("transform", "translate(" + 750 + "," + 550 + ")");
+//g for graph? one is needed for each pie chart
+var gg = svg.append("g").attr("transform", "translate(" + 1000 + "," + 550 + ")");
+var gr = svg.append("g").attr("transform", "translate(" + 500 + "," + 550 + ")");
+
+//color scale (given string, return color)
 var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+//d3 build-in
 var pie = d3.pie()
     .sort(null)
     .value(function(d) { return d.count; });
-
+//attributes for each slice
 var path = d3.arc()
     .outerRadius(radius - 10)
     .innerRadius(0);
-
+//labels for each slice
 var label = d3.arc()
     .outerRadius(radius - 40)
     .innerRadius(radius - 40);
 
+//method for updating gender pie chart
+var updateG = function(year){
+    //remove prev pie chart
+    d3.selectAll("#piechartgender").remove();
 
-var update = function(year){
-    d3.selectAll("#piechart").remove();
-
-    var arc = tooltip.selectAll(".arc")
-	.data(pie(gender[year]))
+    //creating each slice
+    var arc = gg.selectAll(".arc")
+	.data(pie(gender[year])) //gender[year] returns data for the specific year
 	.enter().append("g")
 	.attr("class", "arc")
-	.attr("id","piechart")
-
+	.attr("id","piechartgender")
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.gender); });
+    //labelling
+    arc.append("text")
+	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+	.attr("dy", "0.35em")
+	.text(function(d) {//only label if there's data present
+	    if (d.data.count > 0){
+		return d.data.gender;
+	    }
+	    else{
+		return "";
+	    }
+	});
+}
 
+var race ={"1990": [{"count": 30, "race": "White"}, {"count": 8, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 5, "race": "Asian"}, {"count": 3, "race": "Unknown"}, {"count": 2, "race": "Other"}], "1960": [{"count": 2, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2000": [{"count": 22, "race": "White"}, {"count": 11, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 5, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 6, "race": "Other"}], "1970": [{"count": 5, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2010": [{"count": 67, "race": "White"}, {"count": 59, "race": "Black"}, {"count": 5, "race": "Latino"}, {"count": 7, "race": "Asian"}, {"count": 37, "race": "Unknown"}, {"count": 21, "race": "Other"}], "1980": [{"count": 16, "race": "White"}, {"count": 4, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}]}
+
+
+//method for updating race pie chart
+var updateR = function(year){
+    //remove previous pie chart
+    d3.selectAll("#piechartrace").remove();
+
+    //create slices
+    var arc = gr.selectAll(".arc")
+	.data(pie(race[1970 + year * 10]))
+	.enter().append("g")
+	.attr("class", "arc")
+	.attr("id","piechartrace")
+    arc.append("path")
+	.attr("d", path)
+	.attr("fill", function(d) {return color(d.data.race); });
+    //label
     arc.append("text")
 	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
 	.attr("dy", "0.35em")
 	.text(function(d) {
-	    if (d.data.count > 0){
-		return d.data.gender;
+	    if (d.data.count > 0){//only label if there's data present
+		return d.data.race;
 	    }
 	    else{
 		return "";
