@@ -167,3 +167,6 @@ Filled in the top of the devlog
 
 carolP -- 2018-04-20 13:01:20
 method for shootings by year in decade
+carolP -- 2018-04-20 23:19:28
+wrote method for number of fatalities and worst three shootings per decade
+
