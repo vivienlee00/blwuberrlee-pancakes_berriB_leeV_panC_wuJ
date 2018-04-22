@@ -3,31 +3,29 @@ BlwuBerrLee-Pancakes
 SoftDev2 pd7
 */
 
+var fatalities_decades = [{"count": 28, "story": {"Injured": 13, "Mental Health Issues": "Yes", "Title": "New Orleans Police Shootings", "Total victims": 22, "Gender": "Male", "Latitude": 30.0687242, "Longitude": -89.93147412, "Summary": "On New Year's Eve in 1972, a 23-year-old ex-Navy dental technician went to the central lockup New Orleans Police Department and shot four policeman that day.  Seven days later on January 7, 1973, the shooter shot a grocer and entered the Downtown Howard Johnson Hotel where he shot seventeen people before killed him at the top of the hotel roof.", "Date": "12/31/1972", "Race": "Black American or African American", "Fatalities": 10, "Location": "New Orleans, Louisiana", "S#": 317}},
+{"count": 117, "story": {"Injured": 19, "Mental Health Issues": "Yes", "Title": "McDonald's restaurant in San Ysidro", "Total victims": 40, "Gender": "Male", "Latitude": 32.555556, "Longitude": -117.047656, "Summary": "On July 18, 1984, a 41-year-old unemployed man, walked into a McDonald's restaurant in San Ysidro, California, killing twenty-one people and injuring nineteen others. The shooter was killed at the scene by a SWAT team sniper perched on the roof next door.", "Date": "7/18/1984", "Race": "White American or European American", "Fatalities": 22, "Location": "San Ysidro, California", "S#": 304}},
+{"count": 215, "story": {"Injured": 20, "Mental Health Issues": "Yes", "Title": "Luby's Cafeteria in Killeen, Texas", "Total victims": 43, "Gender": "Male", "Latitude": 31.07925506, "Longitude": -97.73392317, "Summary": "On October 16, 1991, a 35-year old unemployed seaman drove his truck through a window at Luby's Cafeteria in Killeen, Texas. He then opened fire, killing twenty-three people and wounding twenty before turning the gun on himself.", "Date": "10/16/1991", "Race": "White American or European American", "Fatalities": 24, "Location": "Killeen, Texas", "S#": 285}},
+{"count": 261, "story": {"Injured": 23, "Mental Health Issues": "Yes", "Title": "Virginia Tech massacre", "Total victims": 55, "Gender": "Male", "Latitude": 37.2295733, "Longitude": -80.4139393, "Summary": "Virginia Tech student Seung-Hui Cho, 23, opened fire on his school's campus before committing suicide.", "Date": "4/16/2007", "Race": "Asian", "Fatalities": 32, "Location": "Blacksburg, Virginia", "S#": 218}},
+{"count": 757, "story": {"Injured": 527, "Mental Health Issues": "Unclear", "Title": "Las Vegas Strip mass shooting", "Total victims": 585, "Gender": "M", "Latitude": 36.181271, "Longitude": -115.134132, "Summary": "", "Date": "10/1/2017", "Race": "White", "Fatalities": 58, "Location": "Las Vegas, NV", "S#": 1}}];
 var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
 var decadestf = true;
-
-var seventies = [10,20,30,40,50,60,70,80,90,100];
+var seventies = [0, 1, 1, 0, 2, 0, 2, 0, 0, 2];
 var seventiestf = false;
-
-var eighties = [1,2,3,4,5,6,7,8,9,10];
+var eighties = [0, 0, 2, 2, 3, 2, 3, 1, 6, 3];
 var eightiestf = false;
-
-var nineties = [1,2,3,4,5,6,7,8,9,10];
+var nineties = [1, 5, 4, 9, 4, 4, 3, 6, 5, 7];
 var ninetiestf = false;
-
-var thousands = [1,2,3,4,5,6,7,8,9,10];
+var thousands = [1, 2, 2, 3, 2, 3, 7, 10, 6, 8];
 var thousandstf = false;
-
-var current = [1,2,3,4,5,6,7,8];
+var current = [2, 6, 15, 16, 14, 67, 69, 7, 0, 0];
 var currenttf = false;
 
 var svg=d3.select("svg");
 var width= svg.attr("width");
 var height= svg.attr("height");
 var barHeight = 50; //height of timeline blocks
-
-
 var margin = { top: 40, right: 40, bottom: 100, left: 40 };
 
 var chart = d3.select(".chart")
@@ -74,6 +72,9 @@ var remove_hovering = function(){
   d3.selectAll(".shootings-text").remove();
   d3.selectAll("#piechartgender").remove();
   d3.selectAll("#piechartrace").remove();
+  d3.selectAll(".no-data").remove();
+  d3.selectAll(".fatal").remove();
+  d3.selectAll(".largest_shooting").remove();
 }
 //adds mass shooting text in box
 var mass_shootings_text = function(shootingsnum){
@@ -83,7 +84,43 @@ var mass_shootings_text = function(shootingsnum){
      .attr("y", 250)
      .attr("class", "shootings-text");
 }
-
+//says no data in hovering box
+var no_data_text = function(){
+  svg.append("text")
+     .text("There is no data for this year.")
+     .attr("x", 75)
+     .attr("y", 300)
+     .attr("class", "no-data");
+}
+//adds fatalities text to box
+var fatalities_text = function(year){
+  svg.append("text")
+     .text("There were a total of " + fatalities_decades[year]["count"] + " fatalities this year.")
+     .attr("x", 800)
+     //.attr("y", 300)
+     .attr("dy", "20em")
+     .attr("class", "fatal");
+  svg.append("text")
+    .text("Largest Shooting of the Decade:")
+    .attr("x", 800)
+    .attr("dy", "22em")
+    .attr("class", "largest_shooting");
+  svg.append("text")
+    .text("Date: " + fatalities_decades[year]["story"]["Date"])
+    .attr("x", 800)
+    .attr("dy", "24em")
+    .attr("class", "largest_shooting");
+  svg.append("text")
+    .text("Location: " + fatalities_decades[year]["story"]["Location"])
+    .attr("x", 800)
+    .attr("dy", "25em")
+    .attr("class", "largest_shooting");
+  svg.append("text")
+    .text("Story: " + fatalities_decades[year]["story"]["Summary"])
+    .attr("x", 800)
+    .attr("dy", "26em")
+    .attr("class", "largest_shooting");
+}
 bar.append("rect")
 .attr("width", ((width-30)/5))
 .attr("height", barHeight)
@@ -93,6 +130,7 @@ bar.append("rect")
   tooltip_rect();
    if (decadestf){
     mass_shootings_text(d);
+    fatalities_text(decades.indexOf(d));
   }
   console.log(d);
  updateG(decades.indexOf(d));
@@ -148,10 +186,14 @@ document.getElementById("0").addEventListener("click", function(){
       tooltip_rect();
       if (seventiestf){
         mass_shootings_text(d);
-      }
+      }if (d == 0){
+        no_data_text();
+      }else{
       year = 1970 + i;
+      console.log(year);
       updateG_year(year);
       updateR_year(year);
+    }
     })
     .on("mouseout",function(){
       remove_hovering();
@@ -227,10 +269,14 @@ if (ninetiestf == false && decadestf){
     tooltip_rect();
     if (ninetiestf){
       mass_shootings_text(d);
+      console.log(d);
+    }if (d == 0){
+      no_data_text();
+    }else{
+      year = 1990 + i;
+      updateG_year(year);
+      updateR_year(year);
     }
-    year = 1990 + i;
-    updateG_year(year);
-    updateR_year(year);
   })
   .on("mouseout",function(){
     remove_hovering();
@@ -357,7 +403,7 @@ var updateG = function(year){
 	.enter().append("g")
 	.attr("class", "arc")
 	.attr("id","piechartgender")
-  .attr("transform", "translate(-100, -100)")
+  .attr("transform", "translate(-400, -100)")
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.gender); });
@@ -388,7 +434,7 @@ var updateR = function(year){
 	.enter().append("g")
 	.attr("class", "arc")
 	.attr("id","piechartrace")
-  .attr("transform", "translate(-100, -100)") //moves pie chart
+  .attr("transform", "translate(-300, -100)") //moves pie chart
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.race); });
@@ -413,14 +459,13 @@ var gender_year= {"1966": [{"count": 2, "gender": "Male"}, {"count": 0, "gender"
 var updateG_year = function(year){
     //remove prev pie chart
     d3.selectAll("#piechartgenderyear").remove();
-
     //creating each slice
     var arc = gg.selectAll(".arc")
 	.data(pie(gender_year[year]))//gender[year] returns data for the specific year
 	.enter().append("g")
 	.attr("class", "arc")
-	.attr("id","piechartgenderyear")
-  .attr("transform", "translate(-100, -100)")
+	.attr("id","piechartgender")
+  .attr("transform", "translate(-400, -100)")
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.gender); });
@@ -449,8 +494,8 @@ var updateR_year = function(year){
 	     .data(pie(race_year[year]))
 	.enter().append("g")
 	.attr("class", "arc")
-	.attr("id","piechartraceyear")
-  .attr("transform", "translate(-100, -100)") //moves pie chart
+	.attr("id","piechartrace")
+  .attr("transform", "translate(-300, -100)") //moves pie chart
     arc.append("path")
 	.attr("d", path)
 	.attr("fill", function(d) {return color(d.data.race); });

@@ -88,7 +88,7 @@ def gender_by_year():
         #if decade not already in dict, instantialize
         if not year in d:
             d[year] = [{"gender":"Male", "count":0}, {"gender" :"Female", "count":0},{"gender": "Unknown", "count" :0}]
-            
+
         #sort input
         if "m" in shooting["Gender"].lower() and "f" in shooting["Gender"].lower():
             d[year][0]["count"] += 1
@@ -100,7 +100,7 @@ def gender_by_year():
         else:
             d[year][2]["count"] += 1
 
-    #dump data and file write        
+    #dump data and file write
     s = json.dumps(d)
     with open('../data/parsed_info.txt', 'a') as f:
         f.write("\n Gender by Year \n")
@@ -137,7 +137,7 @@ def mental_health_issues_decade():
         f.close()
     return
 #mental_health_issues_decade()
-        
+
 def race_by_decade():
     d = {}
     for shooting in data:
@@ -146,7 +146,7 @@ def race_by_decade():
         #if decade not already in dict, instantialize
         if not decade in d:
             d[decade] = [{"race" : "White", "count" : 0}, {"race" : "Black", "count" : 0}, {"race" : "Latino", "count" : 0}, {"race" : "Asian", "count" : 0}, {"race" : "Unknown", "count" : 0}, {"race" : "Other", "count" : 0}]
-            
+
         #sort input
         if "white" in shooting["Race"].lower():
             d[decade][0]["count"] += 1
@@ -161,7 +161,7 @@ def race_by_decade():
         else:
             d[decade][5]["count"] += 1
 
-    #dump data and file write        
+    #dump data and file write
     s = json.dumps(d)
     with open('../data/parsed_info.txt', 'a') as f:
         f.write("\n Race by Decade \n")
@@ -179,7 +179,7 @@ def race_by_year():
         #if decade not already in dict, instantialize
         if not year in d:
             d[year] =  [{"race" : "White", "count" : 0}, {"race" : "Black", "count" : 0}, {"race" : "Latino", "count" : 0}, {"race" : "Asian", "count" : 0}, {"race" : "Unknown", "count" : 0}, {"race" : "Other", "count" : 0}]
-            
+
         #sort input
         if "white" in shooting["Race"].lower():
             d[year][0]["count"] += 1
@@ -194,7 +194,7 @@ def race_by_year():
         else:
             d[year][5]["count"] += 1
 
-    #dump data and file write        
+    #dump data and file write
     s = json.dumps(d)
     with open('../data/parsed_info.txt', 'a') as f:
         f.write("\n Race by Year \n")
@@ -212,15 +212,15 @@ def shootings_in_year(decade):
         year = shooting["Date"][-4:]
         if year[0:3] == str(decade)[0:3]: #if the decade matches
             d[int(year[-1:])] += 1 #add in at right interval
-            
-    #dump data and file write        
+
+    #dump data and file write
     s = json.dumps(d)
     with open('../data/parsed_info.txt', 'a') as f:
         f.write("\n\n Shootings in a Decade: " + str(decade) + " \n")
         f.write(s)
         f.close()
-    return     
-        
+    return
+
 #shootings_in_year(1970)
 #shootings_in_year(1980)
 #shootings_in_year(1990)
@@ -243,16 +243,16 @@ def fatals_by_year(decade):
                 d[2] = shooting
             elif (d[3] == "") or (d[3]["Fatalities"] < shooting["Fatalities"]):
                 d[3] = shooting
-    #dump data and file write        
+    #dump data and file write
     s = json.dumps(d)
     with open('../data/parsed_info.txt', 'a') as f:
-        f.write("\n\n Shootings in a Decade: " + str(decade) + " \n")
+        f.write("\n\n Fatals in a Decade: " + str(decade) + " \n")
         f.write(s)
         f.close()
-    return     
-        
-#fatals_by_year(1970)
-#fatals_by_year(1980)
-#fatals_by_year(1990)
-#fatals_by_year(2000)
-#fatals_by_year(2010)
+    return
+
+fatals_by_year(1970)
+fatals_by_year(1980)
+fatals_by_year(1990)
+fatals_by_year(2000)
+fatals_by_year(2010)
