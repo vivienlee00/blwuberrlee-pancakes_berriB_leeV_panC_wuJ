@@ -79,6 +79,36 @@ def gender_decade():
         f.close()
 #gender_decade()
 
+#creates a dictionary of gender by year
+def gender_by_year():
+    d = {}
+    for shooting in data:
+        #get the year
+        year = int(shooting["Date"][-4:]);
+        #if decade not already in dict, instantialize
+        if not year in d:
+            d[year] = [{"gender":"Male", "count":0}, {"gender" :"Female", "count":0},{"gender": "Unknown", "count" :0}]
+            
+        #sort input
+        if "m" in shooting["Gender"].lower() and "f" in shooting["Gender"].lower():
+            d[year][0]["count"] += 1
+            d[year][1]["count"] += 1
+        elif "m" in shooting["Gender"].lower():
+            d[year][0]["count"] += 1
+        elif "f" in shooting["Gender"].lower():
+            d[year][1]["count"] += 1
+        else:
+            d[year][2]["count"] += 1
+
+    #dump data and file write        
+    s = json.dumps(d)
+    with open('../data/parsed_info.txt', 'a') as f:
+        f.write("\n Gender by Year \n")
+        f.write(s)
+        f.close()
+    return
+gender_by_year()
+
 #Mental Health issues per decade
 def mental_health_issues_decade():
     yes = 0
@@ -148,21 +178,21 @@ def race_by_year():
         year = int(shooting["Date"][-4:]);
         #if decade not already in dict, instantialize
         if not year in d:
-            d[year] = {"White":0, "Black":0, "Latino": 0, "Asian" : 0, "Unknown" : 0, "Other" : 0}
+            d[year] =  [{"race" : "White", "count" : 0}, {"race" : "Black", "count" : 0}, {"race" : "Latino", "count" : 0}, {"race" : "Asian", "count" : 0}, {"race" : "Unknown", "count" : 0}, {"race" : "Other", "count" : 0}]
             
         #sort input
         if "white" in shooting["Race"].lower():
-            d[year]["White"] += 1
+            d[year][0]["count"] += 1
         elif "black" in shooting["Race"].lower():
-            d[year]["Black"] += 1
+            d[year][1]["count"] += 1
         elif "latino" in shooting["Race"].lower():
-            d[year]["Latino"] += 1
+            d[year][2]["count"] += 1
         elif "asian" in shooting["Race"].lower():
-            d[year]["Asian"] += 1
+            d[year][3]["count"] += 1
         elif "unknown" in shooting["Race"].lower():
-            d[year]["Unknown"] += 1
+            d[year][4]["count"] += 1
         else:
-            d[year]["Other"] += 1
+            d[year][5]["count"] += 1
 
     #dump data and file write        
     s = json.dumps(d)
@@ -172,7 +202,7 @@ def race_by_year():
         f.close()
     return
 
-#race_by_year()
+race_by_year()
 
 
 def shootings_in_year(decade):

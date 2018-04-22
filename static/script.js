@@ -328,6 +328,8 @@ var radius = 150;
 //g for graph? one is needed for each pie chart
 var gg = svg.append("g").attr("transform", "translate(" + 1000 + "," + 550 + ")");
 var gr = svg.append("g").attr("transform", "translate(" + 500 + "," + 550 + ")");
+var ggy = svg.append("g").attr("transform", "translate(" + 1000 + "," + 550 + ")");
+var gry = svg.append("g").attr("transform", "translate(" + 500 + "," + 550 + ")");
 
 //color scale (given string, return color)
 var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
@@ -404,12 +406,67 @@ var updateR = function(year){
 	});
 }
 
+var gender_year= {"1966": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1971": [{"count": 1, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1972": [{"count": 1, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1974": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1976": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1979": [{"count": 2, "gender": "Male"}, {"count": 1, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1982": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1983": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1984": [{"count": 3, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1985": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1986": [{"count": 3, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1987": [{"count": 1, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1988": [{"count": 6, "gender": "Male"}, {"count": 1, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1989": [{"count": 3, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1990": [{"count": 1, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1991": [{"count": 5, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1992": [{"count": 4, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1993": [{"count": 9, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1994": [{"count": 4, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1995": [{"count": 4, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1996": [{"count": 3, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1997": [{"count": 6, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1998": [{"count": 5, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "1999": [{"count": 7, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2000": [{"count": 1, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2001": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2002": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2003": [{"count": 3, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2004": [{"count": 2, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2005": [{"count": 3, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2006": [{"count": 7, "gender": "Male"}, {"count": 1, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2007": [{"count": 10, "gender": "Male"}, {"count": 1, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2008": [{"count": 6, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2009": [{"count": 8, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2010": [{"count": 2, "gender": "Male"}, {"count": 1, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2011": [{"count": 6, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2012": [{"count": 15, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2013": [{"count": 16, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2014": [{"count": 14, "gender": "Male"}, {"count": 2, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2015": [{"count": 67, "gender": "Male"}, {"count": 3, "gender": "Female"}, {"count": 0, "gender": "Unknown"}], "2016": [{"count": 48, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 21, "gender": "Unknown"}], "2017": [{"count": 7, "gender": "Male"}, {"count": 0, "gender": "Female"}, {"count": 0, "gender": "Unknown"}]};
+
+
 //pie chart for gender per year
 var updateG_year = function(year){
+    //remove prev pie chart
+    d3.selectAll("#piechartgenderyear").remove();
 
+    //creating each slice
+    var arc = gg.selectAll(".arc")
+	.data(pie(gender_year[year]))//gender[year] returns data for the specific year
+	.enter().append("g")
+	.attr("class", "arc")
+	.attr("id","piechartgenderyear")
+  .attr("transform", "translate(-100, -100)")
+    arc.append("path")
+	.attr("d", path)
+	.attr("fill", function(d) {return color(d.data.gender); });
+    //labelling
+    arc.append("text")
+	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+	.attr("dy", "0.35em")
+	.text(function(d) {//only label if there's data present
+	    if (d.data.count > 0){
+		return d.data.gender;
+	    }
+	    else{
+		return "";
+	    }
+	});
 }
+
+var race_year = {"1966": [{"count": 2, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1971": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1972": [{"count": 0, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1974": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1976": [{"count": 2, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1979": [{"count": 1, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1982": [{"count": 2, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1983": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1984": [{"count": 2, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1985": [{"count": 1, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1986": [{"count": 2, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1987": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1988": [{"count": 4, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1989": [{"count": 3, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1990": [{"count": 0, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1991": [{"count": 2, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 2, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1992": [{"count": 2, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1993": [{"count": 5, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1994": [{"count": 4, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1995": [{"count": 3, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 1, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1996": [{"count": 2, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1997": [{"count": 3, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}], "1998": [{"count": 4, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "1999": [{"count": 5, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}], "2000": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2001": [{"count": 1, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2002": [{"count": 0, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}], "2003": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}], "2004": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2005": [{"count": 1, "race": "White"}, {"count": 0, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 2, "race": "Other"}], "2006": [{"count": 4, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}], "2007": [{"count": 6, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}], "2008": [{"count": 3, "race": "White"}, {"count": 3, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2009": [{"count": 4, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 2, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2010": [{"count": 1, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2011": [{"count": 3, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 1, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 0, "race": "Other"}], "2012": [{"count": 8, "race": "White"}, {"count": 4, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 2, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}], "2013": [{"count": 8, "race": "White"}, {"count": 5, "race": "Black"}, {"count": 1, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 2, "race": "Other"}], "2014": [{"count": 5, "race": "White"}, {"count": 2, "race": "Black"}, {"count": 1, "race": "Latino"}, {"count": 0, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 6, "race": "Other"}], "2015": [{"count": 25, "race": "White"}, {"count": 26, "race": "Black"}, {"count": 1, "race": "Latino"}, {"count": 3, "race": "Asian"}, {"count": 8, "race": "Unknown"}, {"count": 4, "race": "Other"}], "2016": [{"count": 14, "race": "White"}, {"count": 18, "race": "Black"}, {"count": 0, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 29, "race": "Unknown"}, {"count": 7, "race": "Other"}], "2017": [{"count": 3, "race": "White"}, {"count": 1, "race": "Black"}, {"count": 1, "race": "Latino"}, {"count": 1, "race": "Asian"}, {"count": 0, "race": "Unknown"}, {"count": 1, "race": "Other"}]}
 
 //pie chart for race per year
 var updateR_year = function(year){
-
+    //remove previous pie chart
+    d3.selectAll("#piechartraceyear").remove();
+    //create slices
+    var arc = gr.selectAll(".arc")
+	     .data(pie(race_year[year]))
+	.enter().append("g")
+	.attr("class", "arc")
+	.attr("id","piechartraceyear")
+  .attr("transform", "translate(-100, -100)") //moves pie chart
+    arc.append("path")
+	.attr("d", path)
+	.attr("fill", function(d) {return color(d.data.race); });
+    //label
+    arc.append("text")
+	.attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+	.attr("dy", ".35em")
+	.text(function(d) {
+	    if (d.data.count > 0){//only label if there's data present
+		return d.data.race;
+	    }
+	    else{
+		return "";
+	    }
+	});
 }
+
+//updateG_year(2015)
+//updateR_year(2015)
