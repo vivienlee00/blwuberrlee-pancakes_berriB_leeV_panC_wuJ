@@ -7,7 +7,7 @@ var fatalities_decades = [{"count": 28, "story": {"Injured": 13, "Mental Health 
 {"count": 117, "story": {"Injured": 19, "Mental Health Issues": "Yes", "Title": "McDonald's restaurant in San Ysidro", "Total victims": 40, "Gender": "Male", "Latitude": 32.555556, "Longitude": -117.047656, "Summary": "On July 18, 1984, a 41-year-old unemployed man, walked into a McDonald's restaurant in San Ysidro, California, killing twenty-one people and injuring nineteen others. The shooter was killed at the scene by a SWAT team sniper perched on the roof next door.", "Date": "7/18/1984", "Race": "White American or European American", "Fatalities": 22, "Location": "San Ysidro, California", "S#": 304}},
 {"count": 215, "story": {"Injured": 20, "Mental Health Issues": "Yes", "Title": "Luby's Cafeteria in Killeen, Texas", "Total victims": 43, "Gender": "Male", "Latitude": 31.07925506, "Longitude": -97.73392317, "Summary": "On October 16, 1991, a 35-year old unemployed seaman drove his truck through a window at Luby's Cafeteria in Killeen, Texas. He then opened fire, killing twenty-three people and wounding twenty before turning the gun on himself.", "Date": "10/16/1991", "Race": "White American or European American", "Fatalities": 24, "Location": "Killeen, Texas", "S#": 285}},
 {"count": 261, "story": {"Injured": 23, "Mental Health Issues": "Yes", "Title": "Virginia Tech massacre", "Total victims": 55, "Gender": "Male", "Latitude": 37.2295733, "Longitude": -80.4139393, "Summary": "Virginia Tech student Seung-Hui Cho, 23, opened fire on his school's campus before committing suicide.", "Date": "4/16/2007", "Race": "Asian", "Fatalities": 32, "Location": "Blacksburg, Virginia", "S#": 218}},
-{"count": 757, "story": {"Injured": 527, "Mental Health Issues": "Unclear", "Title": "Las Vegas Strip mass shooting", "Total victims": 585, "Gender": "M", "Latitude": 36.181271, "Longitude": -115.134132, "Summary": "", "Date": "10/1/2017", "Race": "White", "Fatalities": 58, "Location": "Las Vegas, NV", "S#": 1}}];
+{"count": 757, "story": {"Injured": 527, "Mental Health Issues": "Unclear", "Title": "Las Vegas Strip mass shooting", "Total victims": 585, "Gender": "M", "Latitude": 36.181271, "Longitude": -115.134132, "Summary": "The 2017 Las Vegas shooting occurred on the night of Sunday, October 1 when a gunman opened fire on a crowd of concertgoers at the Route 91 Harvest music festival on the Las Vegas Strip in Nevada, leaving 58 people dead and 851 injured.", "Date": "10/1/2017", "Race": "White", "Fatalities": 58, "Location": "Las Vegas, NV", "S#": 1}}];
 var decades = [8, 22, 48, 44, 196];
 var decadenum = 0;
 var decadestf = true;
@@ -97,34 +97,48 @@ var fatalities_text = function(year){
   svg.append("text")
      .text("There were a total of " + fatalities_decades[year]["count"] + " fatalities this year.")
      .attr("x", 800)
-     //.attr("y", 300)
+     .attr("y", 0)
      .attr("dy", "20em")
      .attr("class", "fatal");
   svg.append("text")
     .text("Largest Shooting of the Decade:")
     .attr("x", 800)
+    .attr("y", 15)
     .attr("dy", "22em")
     .attr("class", "largest_shooting");
   svg.append("text")
     .text("Date: " + fatalities_decades[year]["story"]["Date"])
     .attr("x", 800)
+    .attr("y", 30)
     .attr("dy", "24em")
     .attr("class", "largest_shooting");
   svg.append("text")
     .text("Location: " + fatalities_decades[year]["story"]["Location"])
     .attr("x", 800)
+    .attr("y", 45)
     .attr("dy", "25em")
     .attr("class", "largest_shooting");
-  svg.append("text")
-    .text("Story: " + fatalities_decades[year]["story"]["Summary"])
-    .attr("x", 800)
-    .attr("dy", "26em")
+
+    var wrapText = function(){
+      var text = fatalities_decades[year]["story"]["Summary"];
+    }
+
+  svg.append("foreignObject")
+    //.text("Story: " + fatalities_decades[year]["story"]["Summary"])
+    .attr("x", 792)
+    //.attr("dy", "26em")
+    .attr("y", 460)
+    .attr('width', 150)
+    .attr('height', 100)
+    .append("xhtml:body")
+    .html('<div style="width: 500px;">Story: '+ fatalities_decades[year]["story"]["Summary"] +'</div>')
     .attr("class", "largest_shooting");
 }
+
 bar.append("rect")
 .attr("width", ((width-30)/5))
 .attr("height", barHeight)
-.style("fill-opacity", function(d) {return d/100.; })
+.style("fill-opacity", function(d) {return (d*2)/318.; })
 .style("fill", "red")
 .on("mouseover",function(d){
   tooltip_rect();
@@ -159,6 +173,8 @@ var bottomaxis = svg.append("g");
 bottomaxis.call(xAxis);
 bottomaxis.attr("transform", "translate(0," + 100 + ")");
 
+
+//creating year-by-year timelines for each decade
 document.getElementById("0").addEventListener("click", function(){
   remove_hovering();
   if (seventiestf == false && decadestf){
@@ -181,7 +197,7 @@ document.getElementById("0").addEventListener("click", function(){
     barEnter.attr("height", barHeight)
     .style("width", ((width-30)/5))
     .style("fill", "red")
-    .style("fill-opacity", function(d) {return d/100.; })
+    .style("fill-opacity", function(d) {return (d*2)/12.; })
     .on("mouseover",function(d, i){
       tooltip_rect();
       if (seventiestf){
@@ -225,7 +241,7 @@ document.getElementById("1").addEventListener("click", function(){
     barEnter.attr("height", barHeight)
     .style("width", ((width-30)/5))
     .style("fill", "red")
-    .style("fill-opacity", function(d) {return d/100.; })
+    .style("fill-opacity", function(d) {return d/12.; })
     .on("mouseover",function(d, i){
       tooltip_rect();
       if (eightiestf){
@@ -247,7 +263,7 @@ remove_hovering();
 if (ninetiestf == false && decadestf){
   decadestf = false;
   ninetiestf = true;
-  rescale_x([1980, 1990]);
+  rescale_x([1990, 2000]);
   bar.selectAll("rect").remove();
   bar.data(nineties)
     .enter().append("g")
@@ -264,7 +280,7 @@ if (ninetiestf == false && decadestf){
   barEnter.attr("height", barHeight)
   .style("width", ((width-30)/5))
   .style("fill", "red")
-  .style("fill-opacity", function(d) {return d/100.; })
+  .style("fill-opacity", function(d) {return d/18.; })
   .on("mouseover",function(d, i){
     tooltip_rect();
     if (ninetiestf){
@@ -290,7 +306,7 @@ remove_hovering();
 if (thousandstf == false && decadestf){
   decadestf = false;
   thousandstf = true;
-  rescale_x([1980, 1990]);
+  rescale_x([2000, 2010]);
   bar.selectAll("rect").remove();
   bar.data(thousands)
     .enter().append("g")
@@ -307,7 +323,7 @@ if (thousandstf == false && decadestf){
   barEnter.attr("height", barHeight)
   .style("width", ((width-30)/5))
   .style("fill", "red")
-  .style("fill-opacity", function(d) {return d/100.; })
+  .style("fill-opacity", function(d) {return d/20.; })
   .on("mouseover",function(d, i){
     tooltip_rect();
     if (thousandstf){
@@ -329,7 +345,7 @@ remove_hovering();
 if (currenttf == false && decadestf){
   decadestf = false;
   currenttf = true;
-  rescale_x([1980, 1990]);
+  rescale_x([2010, 2020]);
   bar.selectAll("rect").remove();
   bar.data(current)
     .enter().append("g")
@@ -346,7 +362,7 @@ if (currenttf == false && decadestf){
   barEnter.attr("height", barHeight)
   .style("width", ((width-30)/5))
   .style("fill", "red")
-  .style("fill-opacity", function(d) {return d/100.; })
+  .style("fill-opacity", function(d) {return (d*2)/196.; })
   .on("mouseover",function(d, i){
     tooltip_rect();
     if (currenttf){
