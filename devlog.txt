@@ -176,6 +176,10 @@ more hovering
 
 joyceW -- 2018-04-22 11:10:52
 add hovering functionality to each year
+
 carolP -- 2018-04-22 16:04:22
 race and gender pie charts by year
+
+vivienL -- 2018-04-22 23:46:44
+allows users to switch between decade and year view, fixed text wrap bug
 
