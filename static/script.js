@@ -32,12 +32,15 @@ var chart = d3.select(".chart")
 .attr("width", width)
     .attr("height", height);
 
+var origbar = chart.selectAll("g");
+document.getElementById("decades").style.display = "none";
+
 var bar = chart.selectAll("g")
 .data(decades)
 .enter().append("g")
 .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
 .attr("id", function(d, i) { return i;})
-    .attr("class", "time year");
+    .attr("class", "time decade");
 
 var rectangle = svg.append("rect")
 .attr("x", (width-15-(0.3 * (width-30)/5)))
@@ -79,7 +82,7 @@ var remove_hovering = function(){
 //adds mass shooting text in box
 var mass_shootings_text = function(shootingsnum){
   svg.append("text")
-     .text(shootingsnum + " mass shootings have occurred during this decade")
+     .text(shootingsnum + " mass shootings have occurred during this time")
      .attr("x", 75)
      .attr("y", 250)
      .attr("class", "shootings-text");
@@ -173,211 +176,220 @@ var bottomaxis = svg.append("g");
 bottomaxis.call(xAxis);
 bottomaxis.attr("transform", "translate(0," + 100 + ")");
 
-
-//creating year-by-year timelines for each decade
-document.getElementById("0").addEventListener("click", function(){
-  remove_hovering();
-  if (seventiestf == false && decadestf){
-    decadestf = false;
-    seventiestf = true;
-    rescale_x([1970, 1980]);
-    bar.selectAll("rect").remove();
-    bar.data(seventies)
+var clickDecades = function(){
+  //creating year-by-year timelines for each decade
+  document.getElementById("0").addEventListener("click", function(){
+    remove_hovering();
+    if (seventiestf == false && decadestf){
+      decadestf = false;
+      seventiestf = true;
+      rescale_x([1970, 1980]);
+      chart.selectAll(".time").remove();
+      bar = origbar;
+      bar.data(seventies)
       .enter().append("g")
       .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
       .attr("id", function(d, i) { return i;})
       .attr("class", "time year");
-    bar = chart.selectAll(".time");
-  //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
-  //adding rectangles to our timeline to represent each year in a given decade
-    var barEnter = bar.append("rect");
-    bar.transition()
-       .duration(1000)
-       .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
-    barEnter.attr("height", barHeight)
-    .style("width", ((width-30)/5))
-    .style("fill", "red")
-    .style("fill-opacity", function(d) {return (d*2)/12.; })
-    .on("mouseover",function(d, i){
-      tooltip_rect();
-      if (seventiestf){
-        mass_shootings_text(d);
-      }if (d == 0){
-        no_data_text();
-      }else{
-      year = 1970 + i;
-      console.log(year);
-      updateG_year(year);
-      updateR_year(year);
+      bar = chart.selectAll(".time");
+      //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+      //adding rectangles to our timeline to represent each year in a given decade
+      var barEnter = bar.append("rect");
+      bar.transition()
+      .duration(1000)
+      .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
+      barEnter.attr("height", barHeight)
+      .style("width", ((width-30)/5))
+      .style("fill", "red")
+      .style("fill-opacity", function(d) {return (d*2)/12.; })
+      .on("mouseover",function(d, i){
+        tooltip_rect();
+        if (seventiestf){
+          mass_shootings_text(d);
+        }if (d == 0){
+          no_data_text();
+        }else{
+          year = 1970 + i;
+          console.log(year);
+          updateG_year(year);
+          updateR_year(year);
+        }
+      })
+      .on("mouseout",function(){
+        remove_hovering();
+      });
+      barEnter.transition().duration(1000).style("width", ((width-30)/10));
     }
-    })
-    .on("mouseout",function(){
-      remove_hovering();
-    });
-    barEnter.transition().duration(1000).style("width", ((width-30)/10));
-  }
-});
+  });
 
 
-document.getElementById("1").addEventListener("click", function(){
-  remove_hovering();
-  if (eightiestf == false && decadestf){
-    decadestf = false;
-    eightiestf = true;
-    rescale_x([1980, 1990]);
-    bar.selectAll("rect").remove();
-    bar.data(eighties)
+  document.getElementById("1").addEventListener("click", function(){
+    remove_hovering();
+    if (eightiestf == false && decadestf){
+      decadestf = false;
+      eightiestf = true;
+      rescale_x([1980, 1990]);
+      chart.selectAll(".time").remove();
+      bar = origbar;
+      bar.data(eighties)
       .enter().append("g")
       .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
       .attr("id", function(d, i) { return i;})
       .attr("class", "time year");
-    bar = chart.selectAll(".time");
-  //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
-  //adding rectangles to our timeline to represent each year in a given decade
-    var barEnter = bar.append("rect");
-    bar.transition()
-       .duration(1000)
-       .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
-    barEnter.attr("height", barHeight)
-    .style("width", ((width-30)/5))
-    .style("fill", "red")
-    .style("fill-opacity", function(d) {return d/12.; })
-    .on("mouseover",function(d, i){
-      tooltip_rect();
-      if (eightiestf){
-        mass_shootings_text(d);
-      }
-      year = 1980 + i;
-      updateG_year(year);
-      updateR_year(year);
-    })
-    .on("mouseout",function(){
-      remove_hovering();
-    });
-    barEnter.transition().duration(1000).style("width", ((width-30)/10));
-  }
-});
-
-document.getElementById("2").addEventListener("click", function(){
-remove_hovering();
-if (ninetiestf == false && decadestf){
-  decadestf = false;
-  ninetiestf = true;
-  rescale_x([1990, 2000]);
-  bar.selectAll("rect").remove();
-  bar.data(nineties)
-    .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
-    .attr("id", function(d, i) { return i;})
-    .attr("class", "time year");
-  bar = chart.selectAll(".time");
-//bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
-//adding rectangles to our timeline to represent each year in a given decade
-  var barEnter = bar.append("rect");
-  bar.transition()
-     .duration(1000)
-     .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
-  barEnter.attr("height", barHeight)
-  .style("width", ((width-30)/5))
-  .style("fill", "red")
-  .style("fill-opacity", function(d) {return d/18.; })
-  .on("mouseover",function(d, i){
-    tooltip_rect();
-    if (ninetiestf){
-      mass_shootings_text(d);
-      console.log(d);
-    }if (d == 0){
-      no_data_text();
-    }else{
-      year = 1990 + i;
-      updateG_year(year);
-      updateR_year(year);
+      bar = chart.selectAll(".time");
+      //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+      //adding rectangles to our timeline to represent each year in a given decade
+      var barEnter = bar.append("rect");
+      bar.transition()
+      .duration(1000)
+      .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
+      barEnter.attr("height", barHeight)
+      .style("width", ((width-30)/5))
+      .style("fill", "red")
+      .style("fill-opacity", function(d) {return d/12.; })
+      .on("mouseover",function(d, i){
+        tooltip_rect();
+        if (eightiestf){
+          mass_shootings_text(d);
+        }
+        year = 1980 + i;
+        updateG_year(year);
+        updateR_year(year);
+      })
+      .on("mouseout",function(){
+        remove_hovering();
+      });
+      barEnter.transition().duration(1000).style("width", ((width-30)/10));
     }
-  })
-  .on("mouseout",function(){
-    remove_hovering();
   });
-  barEnter.transition().duration(1000).style("width", ((width-30)/10));
-}
-});
 
-document.getElementById("3").addEventListener("click", function(){
-remove_hovering();
-if (thousandstf == false && decadestf){
-  decadestf = false;
-  thousandstf = true;
-  rescale_x([2000, 2010]);
-  bar.selectAll("rect").remove();
-  bar.data(thousands)
-    .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
-    .attr("id", function(d, i) { return i;})
-    .attr("class", "time year");
-  bar = chart.selectAll(".time");
-//bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
-//adding rectangles to our timeline to represent each year in a given decade
-  var barEnter = bar.append("rect");
-  bar.transition()
-     .duration(1000)
-     .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
-  barEnter.attr("height", barHeight)
-  .style("width", ((width-30)/5))
-  .style("fill", "red")
-  .style("fill-opacity", function(d) {return d/20.; })
-  .on("mouseover",function(d, i){
-    tooltip_rect();
-    if (thousandstf){
-      mass_shootings_text(d);
-    }
-    year = 2000 + i;
-    updateG_year(year);
-    updateR_year(year);
-  })
-  .on("mouseout",function(){
+  document.getElementById("2").addEventListener("click", function(){
     remove_hovering();
+    if (ninetiestf == false && decadestf){
+      decadestf = false;
+      ninetiestf = true;
+      rescale_x([1990, 2000]);
+      chart.selectAll(".time").remove();
+      bar = origbar;
+      bar.data(nineties)
+      .enter().append("g")
+      .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
+      .attr("id", function(d, i) { return i;})
+      .attr("class", "time year");
+      bar = chart.selectAll(".time");
+      //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+      //adding rectangles to our timeline to represent each year in a given decade
+      var barEnter = bar.append("rect");
+      bar.transition()
+      .duration(1000)
+      .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
+      barEnter.attr("height", barHeight)
+      .style("width", ((width-30)/5))
+      .style("fill", "red")
+      .style("fill-opacity", function(d) {return d/18.; })
+      .on("mouseover",function(d, i){
+        tooltip_rect();
+        if (ninetiestf){
+          mass_shootings_text(d);
+          console.log(d);
+        }if (d == 0){
+          no_data_text();
+        }else{
+          year = 1990 + i;
+          updateG_year(year);
+          updateR_year(year);
+        }
+      })
+      .on("mouseout",function(){
+        remove_hovering();
+      });
+      barEnter.transition().duration(1000).style("width", ((width-30)/10));
+    }
   });
-  barEnter.transition().duration(1000).style("width", ((width-30)/10));
-}
-});
 
-document.getElementById("4").addEventListener("click", function(){
-remove_hovering();
-if (currenttf == false && decadestf){
-  decadestf = false;
-  currenttf = true;
-  rescale_x([2010, 2020]);
-  bar.selectAll("rect").remove();
-  bar.data(current)
-    .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
-    .attr("id", function(d, i) { return i;})
-    .attr("class", "time year");
-  bar = chart.selectAll(".time");
-//bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
-//adding rectangles to our timeline to represent each year in a given decade
-  var barEnter = bar.append("rect");
-  bar.transition()
-     .duration(1000)
-     .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
-  barEnter.attr("height", barHeight)
-  .style("width", ((width-30)/5))
-  .style("fill", "red")
-  .style("fill-opacity", function(d) {return (d*2)/196.; })
-  .on("mouseover",function(d, i){
-    tooltip_rect();
-    if (currenttf){
-      mass_shootings_text(d);
-    }
-    year = 1980 + i;
-    updateG_year(year);
-    updateR_year(year);
-  })
-  .on("mouseout",function(){
+  document.getElementById("3").addEventListener("click", function(){
     remove_hovering();
+    if (thousandstf == false && decadestf){
+      decadestf = false;
+      thousandstf = true;
+      rescale_x([2000, 2010]);
+      chart.selectAll(".time").remove();
+      bar = origbar;
+      bar.data(thousands)
+      .enter().append("g")
+      .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
+      .attr("id", function(d, i) { return i;})
+      .attr("class", "time year");
+      bar = chart.selectAll(".time");
+      //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+      //adding rectangles to our timeline to represent each year in a given decade
+      var barEnter = bar.append("rect");
+      bar.transition()
+      .duration(1000)
+      .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
+      barEnter.attr("height", barHeight)
+      .style("width", ((width-30)/5))
+      .style("fill", "red")
+      .style("fill-opacity", function(d) {return d/20.; })
+      .on("mouseover",function(d, i){
+        tooltip_rect();
+        if (thousandstf){
+          mass_shootings_text(d);
+        }
+        year = 2000 + i;
+        updateG_year(year);
+        updateR_year(year);
+      })
+      .on("mouseout",function(){
+        remove_hovering();
+      });
+      barEnter.transition().duration(1000).style("width", ((width-30)/10));
+    }
   });
-  barEnter.transition().duration(1000).style("width", ((width-30)/10));
+
+  document.getElementById("4").addEventListener("click", function(){
+    remove_hovering();
+    if (currenttf == false && decadestf){
+      decadestf = false;
+      currenttf = true;
+      rescale_x([2010, 2020]);
+      chart.selectAll(".time").remove();
+      bar = origbar;
+      bar.data(current)
+      .enter().append("g")
+      .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
+      .attr("id", function(d, i) { return i;})
+      .attr("class", "time year");
+      bar = chart.selectAll(".time");
+      //bar.transition().duration(5000).attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + "," + ((height/2)-(barHeight/2)) +")"; })
+      //adding rectangles to our timeline to represent each year in a given decade
+      var barEnter = bar.append("rect");
+      bar.transition()
+      .duration(1000)
+      .attr("transform", function(d, i) { return "translate(" + ((i*((width-30)/10)+15)) + ",125)"; });
+      barEnter.attr("height", barHeight)
+      .style("width", ((width-30)/5))
+      .style("fill", "red")
+      .style("fill-opacity", function(d) {return (d*2)/196.; })
+      .on("mouseover",function(d, i){
+        tooltip_rect();
+        if (currenttf){
+          mass_shootings_text(d);
+        }
+        year = 1980 + i;
+        updateG_year(year);
+        updateR_year(year);
+      })
+      .on("mouseout",function(){
+        remove_hovering();
+      });
+      barEnter.transition().duration(1000).style("width", ((width-30)/10));
+    }
+  });
+
 }
-});
+
+clickDecades();
 
 //gender data for 2010-2020
 var gender = [[{'count': 6, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 20, 'gender': 'Male'}, {'count': 1, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 47, 'gender': 'Male'}, {'count': 0, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 42, 'gender': 'Male'}, {'count': 2, 'gender': 'Female'}, {'count': 0, 'gender': 'Unknown'}], [{'count': 173, 'gender': 'Male'}, {'count': 6, 'gender': 'Female'}, {'count': 21, 'gender': 'Unknown'}]];
@@ -531,3 +543,63 @@ var updateR_year = function(year){
 
 //updateG_year(2015)
 //updateR_year(2015)
+
+var returnToDecades = function(){
+  decadestf = true;
+  seventiestf = false;
+  eightiestf = false;
+  ninetiestf = false;
+  thousandstf = false;
+  currenttf = false;
+
+  xScale.domain([1970,2020]);
+  bottomaxis.call(xAxis);
+  document.getElementById("whitebox").remove();
+  document.getElementById("empty").style.display = "block";
+  document.getElementById("decades").style.display = "none";
+
+  chart.selectAll(".time").remove();
+  bar = origbar;
+
+  bar.data(decades)
+  .enter().append("g")
+  .attr("transform", function(d, i) { return "translate(" + ((i * ((width-30)/5))+15)+ ",125)"; })
+  .attr("id", function(d, i) { return i;})
+  .attr("class", "time decade");
+
+  bar = chart.selectAll(".time");
+  bar.append("rect")
+  .attr("width", ((width-30)/5))
+  .attr("height", barHeight)
+  .style("fill-opacity", function(d) {return (d*2)/318.; })
+  .style("fill", "red")
+  .on("mouseover",function(d){
+    tooltip_rect();
+     if (decadestf){
+      mass_shootings_text(d);
+      fatalities_text(decades.indexOf(d));
+    }
+    console.log(d);
+   updateG(decades.indexOf(d));
+   updateR(decades.indexOf(d));
+  })
+  .on("mouseout",function(){
+    remove_hovering();
+  });
+
+  bar = origbar;
+  var rectangle = svg.append("rect")
+  .attr("x", (width-15-(0.3 * (width-30)/5)))
+  .attr("y", 123)
+  .attr("width", (0.3 * (width-30)/5)+10)
+  .attr("height", barHeight+10)
+  .attr("id", "whitebox")
+  .attr("fill", "white");
+
+}
+
+document.getElementById("decades").addEventListener("click", function(){
+  returnToDecades();
+  clickDecades();
+  //remove_hovering();
+});
